@@ -11,4 +11,15 @@ import { Component } from '@angular/core';
 })
 export class TestComponent {
 
+    scrivi(){
+      console.log("ADFIOAIJA")
+    }
+
+  /*public eseguiAzione() { //QUESTO METODO AL 90% CI SERVIRA' QUINDI TIENILO
+    if(this.azione!='')
+    {
+      eval(`this.${this.azione}(${this.parametri})`);
+    }
+      
+  }*/ 
 }
