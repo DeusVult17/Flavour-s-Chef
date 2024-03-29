@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -10,16 +10,13 @@ import { Component } from '@angular/core';
   styleUrl: './test.component.css'
 })
 export class TestComponent {
+    constructor(private http: HttpClient){}
 
     scrivi(){
+      this.http.get<string>('/ciao').subscribe(Response =>{
+        console.log(Response);
+      })
       console.log("ADFIOAIJA")
     }
 
-  /*public eseguiAzione() { //QUESTO METODO AL 90% CI SERVIRA' QUINDI TIENILO
-    if(this.azione!='')
-    {
-      eval(`this.${this.azione}(${this.parametri})`);
-    }
-      
-  }*/ 
 }
