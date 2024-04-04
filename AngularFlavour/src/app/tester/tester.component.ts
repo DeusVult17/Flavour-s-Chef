@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { error } from 'console';
 
-interface Risposta{
+interface Risposta{   //risposat in formato json
   message:string;
 }
 
@@ -21,11 +21,7 @@ export class TesterComponent {
   }
 
     scrivi(){
-      // this.http.get<string>('http://localhost:8080/ciao').subscribe(Response =>{
-      //   console.log(Response);
-      // }), (error) =>{
-      //   console.log("errore:",error);
-      // }
+      
       this.http.get<Risposta>('http://localhost:8080/ciao').subscribe(
         (response) => {
           this.message=response.message;
@@ -35,6 +31,5 @@ export class TesterComponent {
           console.error('Errore nella richiesta:', error);
         }
       );
-
     }
 }

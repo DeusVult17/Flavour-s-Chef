@@ -16,8 +16,8 @@ public class testController {
         return response;
     }
 
-    @PostMapping("/bye/{n}")    // postmapping fa la post e con ?qualcosa posso mandare i valori che voglio
-    public int mela(int n){
+    @PostMapping("/bye")    // postmapping fa la post e con ?qualcosa posso mandare i valori che voglio
+    public int mela(@RequestParam int n){
         return n+1;
     }
 
