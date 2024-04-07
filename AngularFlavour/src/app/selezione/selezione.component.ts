@@ -22,14 +22,14 @@ interface AzioniEseguibili {
 
 
 export class SelezioneComponent {
-  @Input() nome: String ='';
-  @Input() azione: string = '';
-  @Input() parametri: string = '';
-  @Input() pagina: string = '';
+  @Input() nome: String ='';    //nome del pulsante
+  @Input() azione: string = ''; //che metodo farà
+  @Input() parametri: string = '';  //parametri se servono per il metodo
+  @Input() pagina: string = ''; // pagina a cui si verrà reinderizzati
 
   message:string;
 
-  azioniEseguibili: AzioniEseguibili = {       
+  azioniEseguibili: AzioniEseguibili = {          //vanno inseriti qua i metodi una volta creati 
     scrivi: () => this.scrivi(),
     cambiaPagina:() =>this.cambiaPagina(),
   };
@@ -57,7 +57,6 @@ export class SelezioneComponent {
   }
 
   cambiaPagina() {
-    console.log(this.pagina);
     this.router.navigate(['/', this.pagina]);
     
   }

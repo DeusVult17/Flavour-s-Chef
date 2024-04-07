@@ -5,24 +5,30 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TesterComponent } from './tester/tester.component'
 import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { SelezioneComponent } from './selezione/selezione.component';
 import { PrenotazioneComponent } from './prenotazione/prenotazione.component';
+import { TextfieldComponent } from './textfield/textfield.component';
 @NgModule({
   declarations: [
     AppComponent,
     TesterComponent,
     HomeComponent,
     SelezioneComponent,
-    PrenotazioneComponent
+    PrenotazioneComponent,
+    TextfieldComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    MatInputModule
   ],
   providers: [
     provideHttpClient(withFetch()),

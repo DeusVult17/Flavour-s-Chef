@@ -1,0 +1,8 @@
+.custom-textfield {
+    border: 2px solid #000;
+    padding: 10px;
+    border-radius: 500px;
+    font-weight: bold;
+    /* transition: border-color 0.3s; */
+    /* Add a transition for smooth border color change */
+}
