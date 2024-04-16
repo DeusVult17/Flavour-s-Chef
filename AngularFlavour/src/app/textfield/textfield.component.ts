@@ -9,7 +9,7 @@ import { DataService } from '../data.service';
 export class TextfieldComponent {
   inputText: string = '';
   @Input() placeholder='';
-  a: string='';
+
   constructor(private dataService: DataService) { }
 
   updateTextValue(event: Event) {

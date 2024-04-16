@@ -21,6 +21,17 @@ public class testController {
         return n+1;
     }
 
+
+
+    @PostMapping("/prenota")
+    public String invia(){
+
+        return "a";
+    }
+
+
+
+
     @GetMapping("/abc/{n}")             //così facendo /abc/5 il valore di n sarà di 5 ma devo mettere pathvariable
     public int barbabietola(@PathVariable int n){
         return n+1;

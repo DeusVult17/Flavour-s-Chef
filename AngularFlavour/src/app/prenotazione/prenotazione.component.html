@@ -1,5 +1,14 @@
 <app-selezione nome="Home" azione="cambiaPagina" pagina="home"></app-selezione> <br><br>
 
-<app-textfield placeholder="ciao"></app-textfield>
+<!-- <app-textfield placeholder="ciao"></app-textfield>
+<app-textfield placeholder="no"></app-textfield> -->
+
+<form #form="ngForm" (ngSubmit)="submitForm()">
+    <input class="custom-textfield" type="text" name="field1" [(ngModel)]="inputValue1" required><br><br>
+    <input class="custom-textfield" type="text" name="field2" [(ngModel)]="inputValue2" required><br><br>
+    <input class="custom-textfield" type="text" name="field3" [(ngModel)]="inputValue3" required><br><br>
+    <button type="submit">Invia</button>
+</form>
+  
+
 <br>
-<app-selezione azione="testo" nome="invia"></app-selezione>
