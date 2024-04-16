@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-textfield',
@@ -8,4 +9,17 @@ import { Component, Input } from '@angular/core';
 export class TextfieldComponent {
   inputText: string = '';
   @Input() placeholder='';
+  a: string='';
+  constructor(private dataService: DataService) { }
+
+  updateTextValue(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target) {
+      this.dataService.changeText(target.value);
+    } else {
+      console.error('Errore: L\'elemento target è null');
+    }
+  }
+
+
 }

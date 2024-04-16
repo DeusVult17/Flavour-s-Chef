@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from '../data.service';
+
 
 
 interface Risposta{   //risposat in formato json
@@ -28,21 +30,20 @@ export class SelezioneComponent {
   @Input() pagina: string = ''; // pagina a cui si verrà reinderizzati
 
   message:string;
+  text: string;
 
   azioniEseguibili: AzioniEseguibili = {          //vanno inseriti qua i metodi una volta creati 
     scrivi: () => this.scrivi(),
     cambiaPagina:() =>this.cambiaPagina(),
+    testo:() => this.testo(),
   };
-  
-
-
-
-  constructor(private http: HttpClient,private router: Router){
+  //
+  constructor(private http: HttpClient,private router: Router,private dataService: DataService){
     this.message='';
-
+    this.text='';
+    this.dataService.currentText.subscribe(text => this.text = text);
   }
-
-
+  //
   public eseguiAzione() {   //serve per eseguire gli altri metodi
 
     // if(this.azione!='')
@@ -53,7 +54,11 @@ export class SelezioneComponent {
     const metodo = this.azioniEseguibili[this.azione];
     if (metodo) {
       metodo(this.parametri);
-    }
+    }   
+  }
+
+  testo(){
+    console.log('Testo ricevuto:', this.text);
   }
 
   cambiaPagina() {
