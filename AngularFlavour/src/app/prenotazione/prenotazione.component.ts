@@ -3,11 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { response } from 'express';
+import { error } from 'console';
 
 
 interface Risposta{   //risposat in formato json
   message:string;
 }
+
 @Component({
   selector: 'app-prenotazione',
   templateUrl: './prenotazione.component.html',
@@ -15,9 +18,10 @@ interface Risposta{   //risposat in formato json
 })
 export class PrenotazioneComponent {
   form: FormGroup;
-  inputValue1: string = '';
-  inputValue2: string = '';
-  inputValue3: string = '';
+  email: string = '';
+  posti: number=0;
+  data: string = '';
+
 
 
   constructor(private formBuilder: FormBuilder,private http: HttpClient) {
@@ -26,12 +30,33 @@ export class PrenotazioneComponent {
     });
   }
 
-  submitForm() {
-    if (this.form.valid) {
-      console.log('1:', this.inputValue1);
-      console.log('2:', this.inputValue2);
-      console.log('3:', this.inputValue3);
-      // Puoi qui fare altre operazioni come inviare i dati al server
+  prenotazione() {
+    if (this.posti<=10 && this.posti>=1 && this.email != ''&& this.email.includes("@") && this.data != '' ) {
+      console.log("email: ",this.email);
+      console.log("posti: ",this.posti);
+      console.log("data: ",this.data);
+      
+
+      const formData={
+        email:this.email,
+        posti:this.posti,
+        data:this.data
+      }
+      console.log(formData);
+      
+      this.http.post<String>('http://localhost:8080/prenota',formData).subscribe(
+        (response) => {
+          //console.log(response.data);
+          console.log("la dove osano i capobastone");
+        },
+        (error) =>{
+          console.log("nonononono");
+
+        }
+
+      )
+    }else{
+      console.log("fucking moron");
     }
   }
 }
