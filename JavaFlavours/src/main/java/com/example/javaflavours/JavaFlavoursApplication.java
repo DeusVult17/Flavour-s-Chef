@@ -1,13 +1,13 @@
-package com.example.flavourschef;
+package com.example.javaflavours;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FlavourschefApplication {
+public class JavaFlavoursApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FlavourschefApplication.class, args);
+        SpringApplication.run(JavaFlavoursApplication.class, args);
     }
 
 }

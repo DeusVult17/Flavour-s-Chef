@@ -8,7 +8,10 @@ import { error } from 'console';
 
 
 interface Risposta{   //risposat in formato json
-  message:string;
+  email: string ;
+  posti: number;
+  data: string;
+
 }
 
 @Component({
@@ -42,14 +45,19 @@ export class PrenotazioneComponent {
         posti:this.posti,
         data:this.data
       }
+
       console.log(formData);
       
-      this.http.post<String>('http://localhost:8080/prenota',formData).subscribe(
+      this.http.post<Risposta>('http://localhost:8080/prenota',formData).subscribe(
         (response) => {
           //console.log(response.data);
+          console.log(response.email);
+          console.log(response.posti);
+          console.log(response.data);
           console.log("la dove osano i capobastone");
         },
         (error) =>{
+          console.log(error);
           console.log("nonononono");
 
         }
