@@ -6,7 +6,7 @@ import { DataService } from '../data.service';
 
 
 
-interface Risposta{   //risposat in formato json
+interface Risposta{   //risposta in formato json
   message:string;
 }
 

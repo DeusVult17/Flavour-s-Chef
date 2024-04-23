@@ -1,0 +1,6 @@
+<app-selezione nome="Home" azione="cambiaPagina" pagina="home"></app-selezione> <br><br>
+
+<form #form="ngForm" (ngSubmit)="ordina()">
+    <label for="Email">Email  </label>  <input class="custom-textfield" type="text" name="Email" [(ngModel)]="email" required><br><br>
+    <button type="submit">Invia</button>
+</form>

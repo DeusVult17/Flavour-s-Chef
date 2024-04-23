@@ -28,10 +28,11 @@ public class prenotazione {
             //ResultSet rs=stmt.executeQuery(sql);
             stmt.executeUpdate(sql);
         }catch(Exception e){
-            System.out.println("errorez");
+            System.out.println("errore");
         }
+    }
 
-
+    public void valida(String email){
 
     }
 

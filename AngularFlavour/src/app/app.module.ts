@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { SelezioneComponent } from './selezione/selezione.component';
 import { PrenotazioneComponent } from './prenotazione/prenotazione.component';
 import { TextfieldComponent } from './textfield/textfield.component';
+import { OrdinazioneComponent } from './ordinazione/ordinazione.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { TextfieldComponent } from './textfield/textfield.component';
     HomeComponent,
     SelezioneComponent,
     PrenotazioneComponent,
-    TextfieldComponent
+    TextfieldComponent,
+    OrdinazioneComponent
   ],
   imports: [
     BrowserModule,
