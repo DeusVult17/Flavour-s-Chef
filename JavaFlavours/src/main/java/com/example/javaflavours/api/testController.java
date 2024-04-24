@@ -14,29 +14,20 @@ import java.util.Map;
 @RestController
 public class testController {
 
-    @GetMapping("/saluto")
-    public String ciao(){
-        return "ciao";
-    }
-
     @GetMapping("/test")
     public String hey(){
         return "shoutouts to simpleflips :D";
-    }
-
-    @GetMapping("/prova")
-    public int bho(){
-        return 2;
     }
 
     @PostMapping("/prenota")
     public Map<String,String> prenotazione(@RequestBody Map<String,String> form){
         //String a=f.get("stringa");
         Map<String,String> response=new HashMap<>();
-        response.put("message","ciao");
+
         int posti=Integer.parseInt(form.get("posti"));
         prenotazione pr=new prenotazione(form.get("email"),form.get("data"),posti);
-        pr.inserisci();
+        String risposta=pr.inserisci();
+        response.put("message",risposta);
         return response;
     }
 

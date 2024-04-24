@@ -8,10 +8,7 @@ import { error } from 'console';
 
 
 interface Risposta{   //risposat in formato json
-  email: string ;
-  posti: number;
-  data: string;
-
+  message: String;
 }
 
 @Component({
@@ -27,7 +24,7 @@ export class PrenotazioneComponent {
 
 
 
-  constructor(private formBuilder: FormBuilder,private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder,private http: HttpClient,private router: Router) {
     this.form = this.formBuilder.group({
       // Definisci qui i controlli del form
     });
@@ -35,9 +32,6 @@ export class PrenotazioneComponent {
 
   prenotazione() {
     if (this.posti<=10 && this.posti>=1 && this.email != ''&& this.email.includes("@") && this.data != '' ) {
-      console.log("email: ",this.email);
-      console.log("posti: ",this.posti);
-      console.log("data: ",this.data);
 
       const formData={
         email:this.email,
@@ -45,20 +39,24 @@ export class PrenotazioneComponent {
         data:this.data
       }
 
-      console.log(formData);
       
       this.http.post<Risposta>('http://localhost:8080/prenota',formData).subscribe(
         (response) => {
-          //console.log(response.data);
-          console.log(response.email);
-          console.log(response.posti);
-          console.log(response.data);
+          console.log(response.message);
+          if(response.message =='si'){
+            console.log("tutto apposttto");
+            this.router.navigate(['/home']);
+          }else{
+            console.log("Data indisponibile");
+            this.router.navigate(['/prenotazione']);
+          }
           console.log("la dove osano i capobastone");
+          
         },
         (error) =>{
           console.log(error);
           console.log("nonononono");
-
+          
         }
 
       )

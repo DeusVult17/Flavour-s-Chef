@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.xml.transform.Result;
 
 public class prenotazione {
     String email;
@@ -21,21 +22,48 @@ public class prenotazione {
     }
 
 
-    public void inserisci(){
+    public String inserisci(){
         Connection cn=null;
+
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn=DriverManager.getConnection("jdbc:mysql://localhost/flavourschef","root","");
             Statement stmt=cn.createStatement();
-            mail();
+            //mail();   METODO PER LA MAIL,DA DECOMMETNARE POI
 
-            /*String sql="";
-            sql="INSERT INTO prenotazione (mail,persone,data) VALUES ('"+this.email+"',"+this.posti+",'"+this.data+"')";
-            //ResultSet rs=stmt.executeQuery(sql);
-            stmt.executeUpdate(sql);*/
+            String sql="SELECT * FROM tavolo WHERE capacita>="+this.posti+"";
+            ResultSet rs=stmt.executeQuery(sql);
+            while(rs.next()){
+                int numTav=rs.getInt("numTav");
+                sql="SELECT * FROM tavolo INNER JOIN assegnato ON tavolo.numTav=assegnato.numTav " +
+                        "WHERE tavolo.numTav="+rs.getInt("numTav")+" AND assegnato.dataOccu='"+this.getData()+"'";
+
+                Statement stmt1=cn.createStatement();
+                ResultSet rs2=stmt1.executeQuery(sql);
+
+                if(!rs2.next()){
+                    sql="INSERT INTO prenotazione (mail,nPersone,data) VALUES ('"+this.email+"',"+this.posti+",'"+this.data+"');";
+                    stmt1.executeUpdate(sql);
+
+                    Statement stmt2=cn.createStatement();
+                    sql="SELECT LAST_INSERT_ID();";
+                    rs2=stmt2.executeQuery(sql);
+                    rs2.next();
+
+                    int codice=rs2.getInt("LAST_INSERT_ID()");
+                    sql="INSERT INTO assegnato (codPre,numTav,dataOccu) VALUES ("+codice+","+numTav+",'"+this.data+"')";
+                    stmt2.executeUpdate(sql);
+
+                    return "si";
+
+                }
+            }
+
+            return "no";
 
         }catch(Exception e){
-            System.out.println("errore");
+            System.out.println(e);
+            return "errore";
         }
     }
 
