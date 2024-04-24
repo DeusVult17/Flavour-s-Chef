@@ -81,8 +81,8 @@ public class prenotazione {
     public void mail(){
         String host = "smtp.gmail.com";
         String port = "587";
-        String username = "hxhprd05t15e507v@iisbadoni.edu.it";  //STA ROBA VA CAMBIATA CON LA FAKE MAIL DEL PROGRAMMA
-        String password = "ilbadoninonmipaga"; // THE SAME
+        String username = "mail";  //STA ROBA VA CAMBIATA CON LA FAKE MAIL DEL PROGRAMMA
+        String password = "ppassword"; // THE SAME
 
 
         Properties props = new Properties();
