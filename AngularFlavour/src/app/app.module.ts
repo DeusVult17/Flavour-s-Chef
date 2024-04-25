@@ -7,7 +7,7 @@ import { TesterComponent } from './tester/tester.component'
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -15,6 +15,7 @@ import { SelezioneComponent } from './selezione/selezione.component';
 import { PrenotazioneComponent } from './prenotazione/prenotazione.component';
 import { TextfieldComponent } from './textfield/textfield.component';
 import { OrdinazioneComponent } from './ordinazione/ordinazione.component';
+import { MenuComponent } from './menu/menu.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { OrdinazioneComponent } from './ordinazione/ordinazione.component';
     SelezioneComponent,
     PrenotazioneComponent,
     TextfieldComponent,
-    OrdinazioneComponent
+    OrdinazioneComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { OrdinazioneComponent } from './ordinazione/ordinazione.component';
     HttpClientModule,
     RouterModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideHttpClient(withFetch()),

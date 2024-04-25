@@ -32,13 +32,11 @@ public class testController {
     }
 
     @PostMapping("/ordina")
-    public Map<String,String> ordinazione(@RequestBody Map<String,String> form){
-        Map<String,String> response=new HashMap<>();
-        response.put("email",form.get("email"));
-
+    public Map<String,Boolean> ordinazione(@RequestBody Map<String,String> form){
+        Map<String,Boolean> response=new HashMap<>();
         prenotazione pr=new prenotazione();
-        pr.valida(form.get("email"));
-
+        boolean validation=pr.valida(form.get("email"));
+        response.put("validation",validation);
         return response;
     }
 

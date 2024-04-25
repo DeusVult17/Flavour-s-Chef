@@ -53,12 +53,12 @@ public class prenotazione {
                     int codice=rs2.getInt("LAST_INSERT_ID()");
                     sql="INSERT INTO assegnato (codPre,numTav,dataOccu) VALUES ("+codice+","+numTav+",'"+this.data+"')";
                     stmt2.executeUpdate(sql);
-
+                    cn.close();
                     return "si";
 
                 }
             }
-
+            cn.close();
             return "no";
 
         }catch(Exception e){
@@ -67,8 +67,23 @@ public class prenotazione {
         }
     }
 
-    public void valida(String email){
+    public boolean valida(String email){
+        Connection cn=null;
 
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            Statement stmt = cn.createStatement();
+            String sql = "SELECT * from prenotazione WHERE mail='"+email+"'";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception e){
+            return false;
+        }
     }
 
 

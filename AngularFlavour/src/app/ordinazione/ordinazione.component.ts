@@ -8,8 +8,7 @@ import { error } from 'console';
 
 
 interface Risposta{   //risposat in formato json
-  email: string ;
-
+  validation:  boolean;
 }
 
 
@@ -22,27 +21,26 @@ export class OrdinazioneComponent {
   email:String='';
   form: FormGroup;
   
-  constructor(private formBuilder: FormBuilder,private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder,private http: HttpClient,private router: Router) {
     this.form = this.formBuilder.group({
       // Definisci qui i controlli del form
     });
   }
   ordina(){
-
-
-    
     if (this.email.includes("@")) {
 
       const formData={
         email:this.email,
       }
-
-      console.log(formData);
       
       this.http.post<Risposta>('http://localhost:8080/ordina',formData).subscribe(
         (response) => {
-          //console.log(response.data);
-          console.log("bella ragazzi qui st3pny ed oggi siamo in un nuovo episodio di minecraft dove evaderemo le tasse, as always");
+          if(response.validation){
+            this.router.navigate(['/menu']);
+          }else{
+            console.log(response.validation);
+          }
+          
         },
         (error) =>{
           console.log(error);
