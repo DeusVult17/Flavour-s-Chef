@@ -1,9 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 interface Dish {
   id: number;
-  name: string;
+  nome: string;
+  prezzo: number;
+}
+
+interface response{
+  id: string;
+  nome: string;
+  prezzo: string;
+}
+
+interface Risposta{   //risposat in formato json
+  validation:  boolean;
 }
 
 @Component({
@@ -12,25 +24,54 @@ interface Dish {
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  
+
   orderedDishes: Dish[] = [];
   dishes: Dish[] = [
-    { id: 1, name: 'Pizza' },
-    { id: 2, name: 'Pasta' },
-    { id: 3, name: 'Salad' }
+    { id: 4, nome: 'Pizza',prezzo:3},
+    { id: 2, nome: 'Pasta',prezzo:4},
+    { id: 3, nome: 'Salad',prezzo:5}
   ];
 
   selectedDish: number | null = null;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private http: HttpClient) {}
 
   ngOnInit() {
     console.log("BACK2BACK");
+
+    this.http.get<response[]>('http://localhost:8080/menu').subscribe(
+      (response) => {
+
+        for(let i=0; i<response.length;i++){
+          console.log("AAAA");
+          const dish: Dish = {
+            id: parseInt(response[i].id),
+            nome: response[i].nome,
+            prezzo: parseFloat(response[i].prezzo)
+          };
+          this.dishes.push(dish);
+        }
+
+      },
+      (error) =>{
+        console.log(error);
+        console.log("nonononono");
+
+      },
+      () => {
+        if (this.selectedDish !== null) {
+          this.addToOrder();
+        }
+      }
+
+    )
+  
   }
 
   addToOrder() {
     const selectedDish = this.dishes.find(dish => dish.id === this.selectedDish);
     console.log(selectedDish);
+
     if (selectedDish) {
       console.log("TUCA DONKA");
       this.orderedDishes.push(selectedDish);
@@ -40,4 +81,14 @@ export class MenuComponent implements OnInit {
   onDishChange(event: any) {
     this.selectedDish = parseInt(event.target.value);
   }
+
+
+
+  removeFromOrder(dish: Dish) {
+    const index = this.orderedDishes.indexOf(dish);
+    if (index !== -1) {
+      this.orderedDishes.splice(index, 1);
+    }
+  }
+
 }

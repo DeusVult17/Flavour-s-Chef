@@ -88,11 +88,6 @@ public class prenotazione {
 
 
 
-
-
-
-
-
     public void mail(){
         String host = "smtp.gmail.com";
         String port = "587";

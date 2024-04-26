@@ -1,6 +1,7 @@
 package com.example.javaflavours.api;
 
 
+import com.example.javaflavours.model.piatto;
 import com.example.javaflavours.model.prenotazione;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.*;
 
 @RestController
 public class testController {
@@ -38,6 +39,21 @@ public class testController {
         boolean validation=pr.valida(form.get("email"));
         response.put("validation",validation);
         return response;
+    }
+
+    /*@GetMapping("/menu")
+    public Map<String,String>[] ottieniMenu(){
+        /*Map<String,String>[] response=new Map[2];
+        piatto piatto=new piatto();
+        response=piatto.prendi();
+        return response;
+    }*/
+
+
+    @GetMapping("/menu")
+    public List<Map<String, String>> ottieniMenu() {
+        piatto piatto = new piatto();
+        return piatto.prendi();
     }
 
 

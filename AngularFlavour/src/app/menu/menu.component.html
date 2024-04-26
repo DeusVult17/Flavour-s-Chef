@@ -3,7 +3,7 @@
 
 <form (ngSubmit)="addToOrder()">
     <select (change)="onDishChange($event)">
-        <option *ngFor="let dish of dishes" [value]="dish.id">{{ dish.name }}</option>
+        <option *ngFor="let dish of dishes" [value]="dish.id">{{ dish.nome }}</option>
     </select>
     <button type="submit">Invia</button>
 </form>
@@ -14,7 +14,9 @@
 <div class="ordered-dishes">
     <h2>Ordered Dishes</h2>
     <ul>
-      <li *ngFor="let dish of orderedDishes">{{ dish.name }}</li>
+      <li *ngFor="let dish of orderedDishes">{{ dish.nome }}
+        <button (click)="removeFromOrder(dish)">Rimuovi</button>
+      </li>
     </ul>
 </div>
    
