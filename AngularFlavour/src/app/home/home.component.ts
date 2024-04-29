@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,OnInit  } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-home',
@@ -7,21 +8,9 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  constructor(private myService: DataService) { } // Inietta il service nel costruttore
 
-
-  
-
-
-  // scrivi(){      //richiesta http al server 
-      
-  //   this.http.get<Risposta>('http://localhost:8080/ciao').subscribe(
-  //     (response) => {
-  //       this.message=response.message;
-  //       console.log('Risposta ricevuta:', this.message);
-  //     },
-  //     (error) => {
-  //       console.error('Errore nella richiesta:', error);
-  //     }
-  //   );
+  // metodo(){
+  //   this.myService.cambia();
   // }
 }

@@ -16,6 +16,7 @@ import { PrenotazioneComponent } from './prenotazione/prenotazione.component';
 import { TextfieldComponent } from './textfield/textfield.component';
 import { OrdinazioneComponent } from './ordinazione/ordinazione.component';
 import { MenuComponent } from './menu/menu.component';
+import { AsportoComponent } from './asporto/asporto.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { MenuComponent } from './menu/menu.component';
     PrenotazioneComponent,
     TextfieldComponent,
     OrdinazioneComponent,
-    MenuComponent
+    MenuComponent,
+    AsportoComponent
   ],
   imports: [
     BrowserModule,

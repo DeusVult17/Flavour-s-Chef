@@ -11,6 +11,8 @@ public class prenotazione {
     String data;
     int posti;
 
+    int id;
+
     public prenotazione(){
 
     }
@@ -69,7 +71,6 @@ public class prenotazione {
 
     public boolean valida(String email){
         Connection cn=null;
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
@@ -77,6 +78,7 @@ public class prenotazione {
             String sql = "SELECT * from prenotazione WHERE mail='"+email+"'";
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
+                setId(rs.getInt("codPre"));
                 return true;
             }else{
                 return false;
@@ -86,6 +88,66 @@ public class prenotazione {
         }
     }
 
+    public boolean comanda(int id){
+        Connection cn=null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            Statement stmt = cn.createStatement();
+
+            String sql = "DELETE from prenotazione WHERE codPre="+id+"";
+            stmt.executeQuery(sql);
+            sql = "DELETE from assegnato WHERE codPre="+id+"";
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    public boolean asporto(int id){
+        Connection cn=null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            Statement stmt = cn.createStatement();
+
+            String sql = "DELETE from prenotazione WHERE codPre="+id+"";
+            stmt.executeQuery(sql);
+            sql = "DELETE from assegnato WHERE codPre="+id+"";
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+
+    public boolean ordAsporto(){
+
+        Connection cn=null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            Statement stmt = cn.createStatement();
+
+            String sql = "INSERT INTO prenotazione (mail,tipo,data) VALUES ('"+this.email+"',"+1+",'"+this.data+"')";
+            System.out.println(sql);
+            stmt.executeUpdate(sql);
+            sql="SELECT LAST_INSERT_ID();";
+            Statement stmt2 = cn.createStatement();
+            ResultSet rs=stmt2.executeQuery(sql);
+            rs.next();
+            int a=rs.getInt("LAST_INSERT_ID()");
+
+            setId(a);
+
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+            return false;
+        }
+
+
+    }
 
 
     public void mail(){
@@ -121,6 +183,13 @@ public class prenotazione {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;

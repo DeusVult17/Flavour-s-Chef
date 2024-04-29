@@ -8,6 +8,7 @@ import { DataService } from '../data.service';
 
 interface Risposta{   //risposta in formato json
   message:string;
+  validation:Boolean;
 }
 
 interface AzioniEseguibili {
@@ -28,14 +29,16 @@ export class SelezioneComponent {
   @Input() azione: string = ''; //che metodo farà
   @Input() parametri: string = '';  //parametri se servono per il metodo
   @Input() pagina: string = ''; // pagina a cui si verrà reinderizzati
-
+  @Input() tipo:boolean= true; // per fare la funzione di prenotazione tavolo e piatto 
   message:string;
   text: string;
+  
 
   azioniEseguibili: AzioniEseguibili = {          //vanno inseriti qua i metodi una volta creati 
     scrivi: () => this.scrivi(),
     cambiaPagina:() =>this.cambiaPagina(),
     testo:() => this.testo(),
+    //comanda:() => this.comanda(),
   };
   //
   constructor(private http: HttpClient,private router: Router,private dataService: DataService){
@@ -61,7 +64,14 @@ export class SelezioneComponent {
     console.log('Testo ricevuto:', this.text);
   }
 
+
+  
+
   cambiaPagina() {
+    if(!this.tipo){
+      this.dataService.cambia();
+      this.tipo=!this.tipo;
+    }
     this.router.navigate(['/', this.pagina]);
     
   }

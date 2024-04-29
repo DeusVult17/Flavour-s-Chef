@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
+import { DataService } from '../data.service';
 interface Dish {
   id: number;
   nome: string;
@@ -27,14 +27,13 @@ export class MenuComponent implements OnInit {
 
   orderedDishes: Dish[] = [];
   dishes: Dish[] = [
-    { id: 4, nome: 'Pizza',prezzo:3},
-    { id: 2, nome: 'Pasta',prezzo:4},
-    { id: 3, nome: 'Salad',prezzo:5}
+
   ];
 
   selectedDish: number | null = null;
 
-  constructor(private formBuilder: FormBuilder,private http: HttpClient) {}
+
+  constructor(private formBuilder: FormBuilder,private http: HttpClient,private service: DataService) {}
 
   ngOnInit() {
     console.log("BACK2BACK");
@@ -43,7 +42,6 @@ export class MenuComponent implements OnInit {
       (response) => {
 
         for(let i=0; i<response.length;i++){
-          console.log("AAAA");
           const dish: Dish = {
             id: parseInt(response[i].id),
             nome: response[i].nome,
@@ -56,7 +54,6 @@ export class MenuComponent implements OnInit {
       (error) =>{
         console.log(error);
         console.log("nonononono");
-
       },
       () => {
         if (this.selectedDish !== null) {
@@ -67,6 +64,31 @@ export class MenuComponent implements OnInit {
     )
   
   }
+
+  comanda(){
+
+    const body={
+      id: this.service.getId(),
+      piatti: this.orderedDishes
+    }
+
+    this.http.post<Risposta>('http://localhost:8080/comanda',body).subscribe(
+      (response) => {
+        if(response.validation){
+          
+          
+        }else{
+
+        }
+
+     },
+     (error) => {
+       console.error('Errore nella richiesta:', error);       
+      }
+     );
+
+  }
+
 
   addToOrder() {
     const selectedDish = this.dishes.find(dish => dish.id === this.selectedDish);

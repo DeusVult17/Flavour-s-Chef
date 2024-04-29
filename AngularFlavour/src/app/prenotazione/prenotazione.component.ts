@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { response } from 'express';
 import { error } from 'console';
-
+import { DataService } from '../data.service';
 
 interface Risposta{   //risposat in formato json
   message: String;
@@ -16,15 +16,17 @@ interface Risposta{   //risposat in formato json
   templateUrl: './prenotazione.component.html',
   styleUrl: './prenotazione.component.css'
 })
-export class PrenotazioneComponent {
+export class PrenotazioneComponent implements OnInit{
   form: FormGroup;
   email: string = '';
   posti: number=0;
   data: string = '';
 
+  ngOnInit(): void {
+    console.log(this.servizio.mostra());
+  }
 
-
-  constructor(private formBuilder: FormBuilder,private http: HttpClient,private router: Router) {
+  constructor(private formBuilder: FormBuilder,private http: HttpClient,private router: Router,private servizio: DataService) {
     this.form = this.formBuilder.group({
       // Definisci qui i controlli del form
     });
@@ -40,12 +42,22 @@ export class PrenotazioneComponent {
       }
 
       
+      
       this.http.post<Risposta>('http://localhost:8080/prenota',formData).subscribe(
         (response) => {
           console.log(response.message);
           if(response.message =='si'){
             console.log("tutto apposttto");
-            this.router.navigate(['/home']);
+
+            if(this.servizio.mostra()){
+              this.router.navigate(['/home']);
+            }else{
+              this.servizio.cambia();
+              this.router.navigate(['/menu']);
+            }
+
+            
+
           }else{
             console.log("Data indisponibile");
             this.router.navigate(['/prenotazione']);
