@@ -31,7 +31,7 @@ public class prenotazione {
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn=DriverManager.getConnection("jdbc:mysql://localhost/flavourschef","root","");
             Statement stmt=cn.createStatement();
-            //mail();   METODO PER LA MAIL,DA DECOMMETNARE POI
+            mail();   //METODO PER LA MAIL,DA DECOMMETNARE POI
 
             String sql="SELECT * FROM tavolo WHERE capacita>="+this.posti+"";
             ResultSet rs=stmt.executeQuery(sql);
@@ -54,6 +54,7 @@ public class prenotazione {
 
                     int codice=rs2.getInt("LAST_INSERT_ID()");
                     sql="INSERT INTO assegnato (codPre,numTav,dataOccu) VALUES ("+codice+","+numTav+",'"+this.data+"')";
+                    System.out.println(sql);
                     stmt2.executeUpdate(sql);
                     cn.close();
                     return "si";
@@ -153,8 +154,8 @@ public class prenotazione {
     public void mail(){
         String host = "smtp.gmail.com";
         String port = "587";
-        String username = "mail";  //STA ROBA VA CAMBIATA CON LA FAKE MAIL DEL PROGRAMMA
-        String password = "ppassword"; // THE SAME
+        String username = "flavorschef.sdl@gmail.com";  //STA ROBA VA CAMBIATA CON LA FAKE MAIL DEL PROGRAMMA
+        String password = "arma47tetto@R"; // THE SAME
 
 
         Properties props = new Properties();
@@ -172,8 +173,8 @@ public class prenotazione {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("hxhprd05t15e507v@iisbadoni.edu.it"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("paride.hoxha@gmail.com"));
+            message.setFrom(new InternetAddress("flavorschef.sdl@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("gntfnc05s12e507x@iisbadoni.edu.it"));
             message.setSubject("Benvenuto su flavourschef");
             message.setText("Shoutouts to Simpleflips");
             Transport.send(message);

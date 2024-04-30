@@ -21,7 +21,7 @@ export class PrenotazioneComponent implements OnInit{
   email: string = '';
   posti: number=0;
   data: string = '';
-
+  dateTime = new Date()
   ngOnInit(): void {
     console.log(this.servizio.mostra());
   }
@@ -34,7 +34,7 @@ export class PrenotazioneComponent implements OnInit{
 
   prenotazione() {
     if (this.posti<=10 && this.posti>=1 && this.email != ''&& this.email.includes("@") && this.data != '' ) {
-
+     // this.dateTime.
       const formData={
         email:this.email,
         posti:this.posti,
@@ -73,7 +73,6 @@ export class PrenotazioneComponent implements OnInit{
 
       )
     }else{
-      console.log("fucking moron");
     }
   }
 }

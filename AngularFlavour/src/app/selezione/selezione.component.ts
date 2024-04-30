@@ -30,6 +30,7 @@ export class SelezioneComponent {
   @Input() parametri: string = '';  //parametri se servono per il metodo
   @Input() pagina: string = ''; // pagina a cui si verrà reinderizzati
   @Input() tipo:boolean= true; // per fare la funzione di prenotazione tavolo e piatto 
+  @Input() img:String='';
   message:string;
   text: string;
   
