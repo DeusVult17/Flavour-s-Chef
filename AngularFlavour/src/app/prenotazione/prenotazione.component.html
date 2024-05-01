@@ -1,14 +1,22 @@
-<app-selezione nome="Home" azione="cambiaPagina" pagina="home" [tipo]=false></app-selezione> <br><br>
+<div id="divv">
+    <app-selezione img="../../assets/house.svg" nome="Home" azione="cambiaPagina" pagina="home" [tipo]=false></app-selezione> 
 
-<!-- <app-textfield placeholder="ciao"></app-textfield>
-<app-textfield placeholder="no"></app-textfield> -->
+    <form #form="ngForm" (ngSubmit)="prenotazione()">
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input class="custom-textfield" type="text" name="Email" [(ngModel)]="email" required>
+        </div>
 
-<form #form="ngForm" (ngSubmit)="prenotazione()">
-    <label for="Email">Email  </label>  <input class="custom-textfield" type="text" name="Email" [(ngModel)]="email" required><br><br>
-    <label for="Posti">Posti  </label>  <input placeholder="posti"  class="custom-textfield" type="Number" name="posti" min="1" max="10" [(ngModel)]="posti" required><br><br>
-    <label for="Data">Data  </label>    <input placeholder="data" class="custom-textfield" type="date" name="Data" [(ngModel)]="data" required><br><br>
-    <button type="submit">Invia</button>
-</form>
-  
+        <div class="form-group">
+            <label for="Posti">Posti</label>
+            <input placeholder="posti" class="custom-textfield" type="Number" name="posti" min="1" max="10" [(ngModel)]="posti" required>
+        </div>
 
-<br>
+        <div class="form-group">
+            <label for="Data">Data</label>
+            <input placeholder="data" class="custom-textfield" type="date" name="Data" [(ngModel)]="data" required>
+        </div>
+
+        <button type="submit">Invia</button>
+    </form>
+</div>
