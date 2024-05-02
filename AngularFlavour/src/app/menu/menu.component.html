@@ -1,5 +1,4 @@
 <app-selezione img="../../assets/house.svg" nome="Home" azione="cambiaPagina" pagina="home"></app-selezione> <br><br>
-<h2>FUNZIA</h2>
 
 <form (ngSubmit)="addToOrder()">
     <select (change)="onDishChange($event)">
@@ -16,6 +15,6 @@
         <button (click)="removeFromOrder(dish)">Rimuovi</button>
       </li>
     </ul>
-    <app-selezione nome="comanda" azione="comanda"></app-selezione>
+    <app-selezione img="../../assets/menu.svg" nome="Comanda" azione="comanda"></app-selezione>
 </div>
    
