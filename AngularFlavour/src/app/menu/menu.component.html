@@ -1,30 +1,34 @@
-<app-selezione img="../../assets/house.svg" nome="Home" azione="cambiaPagina" pagina="home"></app-selezione> <br><br>
+<div class="container">
+  <div class="left-column">
+      <div class="content">
+          <app-selezione img="../../assets/house.svg" nome="Home" azione="cambiaPagina" pagina="home"></app-selezione>
+          <br><br>
+          <div *ngFor="let dish of dishes">
+              <form (ngSubmit)="addToOrder(dish)" class="dish-form">
+                  <div>
+                      <p>{{ dish.nome }} <button type="submit" class="small-button">Invia</button></p>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
 
-<!-- <form (ngSubmit)="addToOrder()">
-    <select (change)="onDishChange($event)">
-        <option *ngFor="let dish of dishes" [value]="dish.id">{{ dish.nome }}</option>
-    </select>
-    <button type="submit">Invia</button>
-</form> -->
-
-<div *ngFor="let dish of dishes">
-  <form (ngSubmit)="addToOrder(dish)">
-    <div>
-      <p>{{ dish.nome }}<button type="submit">Invia</button></p>
-    </div>
-  </form>
+  <div class="right-column">
+      <div class="content">
+          <h2 class="header">Ordered Dishes</h2>
+          <div class="ordered-dishes">
+              <ul>
+                  <li *ngFor="let dish of orderedDishes">{{ dish.nome }}
+                      <button (click)="removeFromOrder(dish)" class="small-button">Rimuovi</button>
+                  </li>
+              </ul>
+              <button mat-flat-button color="primary" (click)='comanda()'>
+                  <img src="../../assets/menu.svg" alt="image"> Comanda
+              </button>
+          </div>
+      </div>
+  </div>
 </div>
 
 
 
-<div class="ordered-dishes">
-    <h2>Ordered Dishes</h2>
-    <ul>
-      <li *ngFor="let dish of orderedDishes">{{ dish.nome }}
-        <button (click)="removeFromOrder(dish)">Rimuovi</button>
-      </li>
-    </ul>
-    <!-- <app-selezione img="../../assets/menu.svg" nome="Comanda" azione="comanda"></app-selezione> -->
-    <button mat-flat-button color="primary" (click)='comanda()'> <img src="../../assets/menu.svg" alt="image"> Comanda </button>
-</div>
-   
