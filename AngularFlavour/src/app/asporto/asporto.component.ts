@@ -37,11 +37,12 @@ export class AsportoComponent {
         email:this.email,
         data:this.data
       }
+
       this.http.post<Risposta>('http://localhost:8080/asporto',formData).subscribe(
         (response) => {
           if(response.validation){      
             this.servizio.setId(response.id);
-            this.servizio.setAsporto();
+            this.servizio.setAsporto(true);
             
             this.router.navigate(['/menu']);          
           }else{

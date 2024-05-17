@@ -16,21 +16,24 @@
 
 
 -- Dump della struttura del database flavourschef
+DROP DATABASE IF EXISTS `flavourschef`;
 CREATE DATABASE IF NOT EXISTS `flavourschef` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `flavourschef`;
 
 -- Dump della struttura di tabella flavourschef.assegnato
+DROP TABLE IF EXISTS `assegnato`;
 CREATE TABLE IF NOT EXISTS `assegnato` (
   `codPre` int(11) NOT NULL,
   `numTav` int(11) NOT NULL,
-  `dataOccu` int(11) NOT NULL,
-  PRIMARY KEY (`codPre`,`numTav`,`dataOccu`),
-  KEY `codPre_numTav_dataOccu` (`codPre`,`numTav`,`dataOccu`)
+  `dataOccu` date NOT NULL,
+  PRIMARY KEY (`codPre`,`numTav`) USING BTREE,
+  KEY `codPre_numTav_dataOccu` (`codPre`,`numTav`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- L’esportazione dei dati non era selezionata.
 
 -- Dump della struttura di tabella flavourschef.compostoda
+DROP TABLE IF EXISTS `compostoda`;
 CREATE TABLE IF NOT EXISTS `compostoda` (
   `codPia` int(11) NOT NULL,
   `codIng` int(11) NOT NULL,
@@ -41,9 +44,11 @@ CREATE TABLE IF NOT EXISTS `compostoda` (
 -- L’esportazione dei dati non era selezionata.
 
 -- Dump della struttura di tabella flavourschef.contiene
+DROP TABLE IF EXISTS `contiene`;
 CREATE TABLE IF NOT EXISTS `contiene` (
   `codPia` int(11) NOT NULL,
-  `codPre` int(11) NOT NULL,
+  `codPre` int(11) NOT NULL DEFAULT 0,
+  `quantita` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`codPia`,`codPre`),
   KEY `codPia_codPre` (`codPia`,`codPre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -51,25 +56,28 @@ CREATE TABLE IF NOT EXISTS `contiene` (
 -- L’esportazione dei dati non era selezionata.
 
 -- Dump della struttura di tabella flavourschef.ingrediente
+DROP TABLE IF EXISTS `ingrediente`;
 CREATE TABLE IF NOT EXISTS `ingrediente` (
   `codIng` int(11) NOT NULL AUTO_INCREMENT,
   `nome` tinytext DEFAULT NULL,
   PRIMARY KEY (`codIng`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- L’esportazione dei dati non era selezionata.
 
 -- Dump della struttura di tabella flavourschef.piatto
+DROP TABLE IF EXISTS `piatto`;
 CREATE TABLE IF NOT EXISTS `piatto` (
   `codPia` int(11) NOT NULL AUTO_INCREMENT,
   `nome` tinytext NOT NULL,
   `prezzo` double NOT NULL,
   PRIMARY KEY (`codPia`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- L’esportazione dei dati non era selezionata.
 
 -- Dump della struttura di tabella flavourschef.prenotazione
+DROP TABLE IF EXISTS `prenotazione`;
 CREATE TABLE IF NOT EXISTS `prenotazione` (
   `codPre` int(11) NOT NULL AUTO_INCREMENT,
   `mail` tinytext DEFAULT NULL,
@@ -77,19 +85,18 @@ CREATE TABLE IF NOT EXISTS `prenotazione` (
   `data` date DEFAULT NULL,
   `nPersone` tinyint(4) DEFAULT NULL,
   `ora` time DEFAULT NULL,
-  `numTav` int(11) DEFAULT NULL,
-  PRIMARY KEY (`codPre`),
-  KEY `numTav` (`numTav`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`codPre`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- L’esportazione dei dati non era selezionata.
 
 -- Dump della struttura di tabella flavourschef.tavolo
+DROP TABLE IF EXISTS `tavolo`;
 CREATE TABLE IF NOT EXISTS `tavolo` (
   `numTav` int(11) NOT NULL AUTO_INCREMENT,
   `capacita` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`numTav`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- L’esportazione dei dati non era selezionata.
 

@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Input } from '@angular/core';
@@ -6,28 +7,30 @@ import { HttpClient } from '@angular/common/http';
 import { response } from 'express';
 import { error } from 'console';
 import { DataService } from '../data.service';
+import { NumberSymbol } from '@angular/common';
 
 interface Risposta{   //risposat in formato json
   message: String;
+  id: number;
 }
 
 @Component({
-  selector: 'app-prenotazione',
-  templateUrl: './prenotazione.component.html',
-  styleUrl: './prenotazione.component.css'
+  selector: 'app-tavpiatti',
+  templateUrl: './tavpiatti.component.html',
+  styleUrl: './tavpiatti.component.css'
 })
+export class TavpiattiComponent {
 
-export class PrenotazioneComponent {
   form: FormGroup;
   email: string = '';
   posti: number=0;
-  data: string='';
+  data: string=''; //Date= new Date();
   currentDate: Date;
 
   constructor(private formBuilder: FormBuilder,private http: HttpClient,private router: Router,private servizio: DataService) {
     this.currentDate=new Date();
     this.form = this.formBuilder.group({
-      // Definisci qui i controlli del form
+
     });
   }
 
@@ -41,6 +44,41 @@ export class PrenotazioneComponent {
 
 
   prenotazione() {
+    // console.log(this.currentDate);
+    // console.log(this.data);
+    // if (this.posti<=10 && this.posti>=1 && this.email != ''&& this.email.includes("@") && this.data != null ) {
+    //  // 
+
+    //   const formData={
+    //     email:this.email,
+    //     posti:this.posti,
+    //     data:this.data
+    //   }
+
+    //   this.http.post<Risposta>('http://localhost:8080/prenota',formData).subscribe(
+    //     (response) => {
+    //       console.log(response.message);
+    //       if(response.message =='si'){
+
+    //         this.servizio.setId(response.id);
+    //         this.router.navigate(['/menu']);
+      
+    //       }else{
+
+    //         console.log("Data indisponibile");
+    //         this.router.navigate(['/tavpiatti']);
+    //       }
+          
+    //     },
+    //     (error) =>{
+    //       console.log(error);
+          
+    //     }
+
+    //   )
+    // }else{
+    //   console.log("form non conforme");
+    // }
 
     if (this.posti<=10 && this.posti>=1 && this.email != ''&& this.email.includes("@") && this.isDataValid(this.data) ) {
 
@@ -55,11 +93,11 @@ export class PrenotazioneComponent {
           console.log(response.message);
           if(response.message =='si'){
 
-            this.router.navigate(['/home']);
+            this.router.navigate(['/menu']);
 
           }else{
             console.log("Data indisponibile");
-            this.router.navigate(['/prenotazione']);
+            this.router.navigate(['/tavpiatti']);
           }
 
           
@@ -73,6 +111,5 @@ export class PrenotazioneComponent {
     }else{
       alert('Il form presenta degli errori');
     }
-
   }
 }

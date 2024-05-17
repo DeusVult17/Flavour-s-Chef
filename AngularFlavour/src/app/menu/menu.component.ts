@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
+import { Router } from '@angular/router';
 interface Dish {
   id: number;
   nome: string;
   prezzo: number;
 }
+
 
 interface response{
   id: string;
@@ -29,15 +31,12 @@ export class MenuComponent implements OnInit {
   dishes: Dish[] = [
 
   ];
-
   selectedDish: number | null = null;
 
-
-  constructor(private formBuilder: FormBuilder,private http: HttpClient,private service: DataService) {}
+  constructor(private formBuilder: FormBuilder,private http: HttpClient,private service: DataService,private router: Router) {}
 
   ngOnInit() {
-    console.log("BACK2BACK");
-
+    console.log(this.service.getId());
     this.http.get<response[]>('http://localhost:8080/menu').subscribe(
       (response) => {
 
@@ -65,6 +64,7 @@ export class MenuComponent implements OnInit {
   
   }
 
+
   comanda(){
 
     const body={
@@ -72,22 +72,50 @@ export class MenuComponent implements OnInit {
       piatti: this.orderedDishes
     }
 
+    if(this.service.getId()==0){
+      console.log("errore nella ricerca dell'id UTENTE");
+      this.router.navigate(['/home']);
+    }
+    if(this.service.getAsporto()){    //DA CAMBIARE LA API IN ASPORTO 
+      this.http.post<Risposta>('http://localhost:8080/comanda',body).subscribe(
+        (response) => {
+          if(response.validation){
+
+            
+            
+          }else{
+
+          }
+  
+       },
+       (error) => {
+         console.error('Errore nella richiesta:', error);       
+        }
+       );
+
+    }
+
+
     this.http.post<Risposta>('http://localhost:8080/comanda',body).subscribe(
       (response) => {
+
         if(response.validation){
           
-          
+          this.router.navigate(['/home']);
         }else{
 
+          this.router.navigate(['/home']);
         }
 
      },
+
      (error) => {
        console.error('Errore nella richiesta:', error);       
       }
      );
 
   }
+
 
 
   addToOrder() {
@@ -99,6 +127,7 @@ export class MenuComponent implements OnInit {
       this.orderedDishes.push(selectedDish);
     }
   }
+
 
   onDishChange(event: any) {
     this.selectedDish = parseInt(event.target.value);

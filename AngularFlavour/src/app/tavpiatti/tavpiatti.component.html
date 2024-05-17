@@ -1,0 +1,24 @@
+<div id="divv">
+    <div class="content">
+        <app-selezione img="../../assets/house.svg" nome="Home" azione="cambiaPagina" pagina="home" [tipo]=false></app-selezione> 
+
+        <form #form="ngForm" (ngSubmit)="prenotazione()">
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input class="custom-textfield" type="text" name="Email" [(ngModel)]="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Posti">Posti</label>
+                <input placeholder="posti" class="custom-textfield" type="Number" name="posti" min="1" max="10" [(ngModel)]="posti" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Data">Data</label>
+                <input placeholder="data" class="custom-textfield" type="date" name="Data" [(ngModel)]="data" required>
+            </div>
+
+            <button type="submit"> <img src="../../assets/send.svg">Invia</button>
+        </form>
+    </div>
+</div>

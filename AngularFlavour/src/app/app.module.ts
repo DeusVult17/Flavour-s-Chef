@@ -17,6 +17,7 @@ import { TextfieldComponent } from './textfield/textfield.component';
 import { OrdinazioneComponent } from './ordinazione/ordinazione.component';
 import { MenuComponent } from './menu/menu.component';
 import { AsportoComponent } from './asporto/asporto.component';
+import { TavpiattiComponent } from './tavpiatti/tavpiatti.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { AsportoComponent } from './asporto/asporto.component';
     TextfieldComponent,
     OrdinazioneComponent,
     MenuComponent,
-    AsportoComponent
+    AsportoComponent,
+    TavpiattiComponent
   ],
   imports: [
     BrowserModule,

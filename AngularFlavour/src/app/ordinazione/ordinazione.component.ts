@@ -52,7 +52,7 @@ export class OrdinazioneComponent {
 
       )
     }else{
-      console.log("fucking moron");
+      console.log("mail non conforme");
     }
 
   }

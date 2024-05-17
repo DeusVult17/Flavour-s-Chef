@@ -3,6 +3,7 @@ import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
+import { timingSafeEqual } from 'crypto';
 
 
 
@@ -69,12 +70,24 @@ export class SelezioneComponent {
   
 
   cambiaPagina() {
-    if(!this.tipo){
-      this.dataService.cambia();
-      this.tipo=!this.tipo;
-    }
+    //console.log(this.tipo);
+    // if(this.tipo==false){
+    //   console.log("tua mamma");
+    //   this.dataService.cambia();
+    //   this.tipo=true;
+    //   this.router.navigate(['/', this.pagina]);
+    // }else{
+    //   if(this.dataService.mostra()==false){
+    //     console.log("splende");
+    //     this.dataService.cambia();
+    //     this.router.navigate(['/', this.pagina]);
+    //   }else{
+    //     console.log("come il tesoro di un famoso re");
+        
+    //   }
+
     this.router.navigate(['/', this.pagina]);
-    
+  
   }
 
   scrivi(){      //richiesta get http al server  TEST POI DA TOGLIERE

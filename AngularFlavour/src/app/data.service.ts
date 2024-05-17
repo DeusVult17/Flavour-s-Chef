@@ -8,7 +8,6 @@ export class DataService {
   private textSource = new BehaviorSubject<string>('');
 
   currentText = this.textSource.asObservable();
-  cambio: Boolean=true;
   idPre: number=0;
   asporto: Boolean=false;
 
@@ -21,21 +20,15 @@ export class DataService {
     return this.idPre;
   }
 
-  setAsporto(){
-    this.asporto= !this.asporto;
+
+  setAsporto(flag:boolean){
+    this.asporto= flag;
   }
 
   getAsporto():Boolean{
     return this.asporto;
   }
 
-  cambia(){
-    this.cambio=!this.cambio;
-  }
-
-  mostra():Boolean{
-    return this.cambio;
-  }
 
   changeText(text: string) {
     this.textSource.next(text);
