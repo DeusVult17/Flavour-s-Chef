@@ -30,7 +30,6 @@ export class SelezioneComponent {
   @Input() azione: string = ''; //che metodo farà
   @Input() parametri: string = '';  //parametri se servono per il metodo
   @Input() pagina: string = ''; // pagina a cui si verrà reinderizzati
-  @Input() tipo:boolean= true; // per fare la funzione di prenotazione tavolo e piatto 
   @Input() img:String='';
   message:string;
   text: string;
@@ -42,12 +41,14 @@ export class SelezioneComponent {
     testo:() => this.testo(),
     //comanda:() => this.comanda(),
   };
+
   //
   constructor(private http: HttpClient,private router: Router,private dataService: DataService){
     this.message='';
     this.text='';
     this.dataService.currentText.subscribe(text => this.text = text);
   }
+
   //
   public eseguiAzione() {   //serve per eseguire gli altri metodi
 
@@ -70,21 +71,7 @@ export class SelezioneComponent {
   
 
   cambiaPagina() {
-    //console.log(this.tipo);
-    // if(this.tipo==false){
-    //   console.log("tua mamma");
-    //   this.dataService.cambia();
-    //   this.tipo=true;
-    //   this.router.navigate(['/', this.pagina]);
-    // }else{
-    //   if(this.dataService.mostra()==false){
-    //     console.log("splende");
-    //     this.dataService.cambia();
-    //     this.router.navigate(['/', this.pagina]);
-    //   }else{
-    //     console.log("come il tesoro di un famoso re");
-        
-    //   }
+
 
     this.router.navigate(['/', this.pagina]);
   

@@ -22,10 +22,8 @@ export class PrenotazioneComponent {
   email: string = '';
   posti: number=0;
   data: string='';
-  currentDate: Date;
 
   constructor(private formBuilder: FormBuilder,private http: HttpClient,private router: Router,private servizio: DataService) {
-    this.currentDate=new Date();
     this.form = this.formBuilder.group({
       // Definisci qui i controlli del form
     });

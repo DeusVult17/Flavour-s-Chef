@@ -1,1 +1,19 @@
-<p>login works!</p>
+<div id="divv">
+    <div class="content">
+        <app-selezione img="../../assets/house.svg" nome="Home" azione="cambiaPagina" pagina="home"></app-selezione> 
+
+        <form #form="ngForm" (ngSubmit)="entra()">
+            <div class="form-group">
+                <label for="user">Username</label>
+                <input class="custom-textfield" type="text" name="user" [(ngModel)]="user" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="custom-textfield" type="text" name="password" [(ngModel)]="password" required>
+            </div>
+
+            <button type="submit"> <img src="../../assets/send.svg">Invia</button>
+        </form>
+    </div>
+</div>

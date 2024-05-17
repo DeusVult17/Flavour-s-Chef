@@ -19,6 +19,7 @@ import { MenuComponent } from './menu/menu.component';
 import { AsportoComponent } from './asporto/asporto.component';
 import { TavpiattiComponent } from './tavpiatti/tavpiatti.component';
 import { LoginComponent } from './login/login.component';
+import { AdminComponent } from './admin/admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { LoginComponent } from './login/login.component';
     MenuComponent,
     AsportoComponent,
     TavpiattiComponent,
-    LoginComponent
+    LoginComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
