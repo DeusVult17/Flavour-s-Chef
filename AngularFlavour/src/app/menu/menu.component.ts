@@ -39,13 +39,14 @@ export class MenuComponent implements OnInit {
     console.log(this.service.getId());
     this.http.get<response[]>('http://localhost:8080/menu').subscribe(
       (response) => {
-
+        console.log("we're so barack");
         for(let i=0; i<response.length;i++){
           const dish: Dish = {
             id: parseInt(response[i].id),
             nome: response[i].nome,
             prezzo: parseFloat(response[i].prezzo)
           };
+
           this.dishes.push(dish);
         }
 
@@ -54,11 +55,6 @@ export class MenuComponent implements OnInit {
         console.log(error);
         console.log("nonononono");
       },
-      () => {
-        if (this.selectedDish !== null) {
-          this.addToOrder();
-        }
-      }
 
     )
   
@@ -80,9 +76,7 @@ export class MenuComponent implements OnInit {
       this.http.post<Risposta>('http://localhost:8080/comanda',body).subscribe(
         (response) => {
           if(response.validation){
-
-            
-            
+  
           }else{
 
           }
@@ -118,14 +112,9 @@ export class MenuComponent implements OnInit {
 
 
 
-  addToOrder() {
-    const selectedDish = this.dishes.find(dish => dish.id === this.selectedDish);
-    console.log(selectedDish);
+  addToOrder(dish: Dish) {
 
-    if (selectedDish) {
-      console.log("TUCA DONKA");
-      this.orderedDishes.push(selectedDish);
-    }
+    this.orderedDishes.push(dish);
   }
 
 

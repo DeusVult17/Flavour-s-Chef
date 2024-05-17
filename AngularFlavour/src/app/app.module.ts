@@ -18,6 +18,7 @@ import { OrdinazioneComponent } from './ordinazione/ordinazione.component';
 import { MenuComponent } from './menu/menu.component';
 import { AsportoComponent } from './asporto/asporto.component';
 import { TavpiattiComponent } from './tavpiatti/tavpiatti.component';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { TavpiattiComponent } from './tavpiatti/tavpiatti.component';
     OrdinazioneComponent,
     MenuComponent,
     AsportoComponent,
-    TavpiattiComponent
+    TavpiattiComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
