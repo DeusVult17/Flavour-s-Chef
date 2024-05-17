@@ -1,24 +1,4 @@
-/* #divv {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  position: relative;
-}
-
-.header {
-  text-align: center;
-  color: #ef8103;
-  font-size: 60px;
-  margin-top: 10px;
-  font-family: STHupo;
-  text-shadow: 2px 2px 2px #000;
-}
-
- */
-
- #divv {
+#divv {
   display: flex;
   flex-direction: column;
   justify-content: center;

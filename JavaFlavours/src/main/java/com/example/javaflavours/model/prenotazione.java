@@ -29,7 +29,7 @@ public class prenotazione {
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn=DriverManager.getConnection("jdbc:mysql://localhost/flavourschef","root","");
+            cn=DriverManager.getConnection("jdbc:mysql://localhost/flavourschef","root","Password12");
             Statement stmt=cn.createStatement();
             mail();   //METODO PER LA MAIL,DA DECOMMETNARE POI
 
@@ -74,7 +74,7 @@ public class prenotazione {
         Connection cn=null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
             String sql = "SELECT * from prenotazione WHERE mail='"+email+"'";
             ResultSet rs = stmt.executeQuery(sql);
@@ -93,7 +93,7 @@ public class prenotazione {
         Connection cn=null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
 
             String sql = "DELETE from prenotazione WHERE codPre="+id+"";
@@ -109,7 +109,7 @@ public class prenotazione {
         Connection cn=null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
 
             String sql = "DELETE from prenotazione WHERE codPre="+id+"";
@@ -127,7 +127,7 @@ public class prenotazione {
         Connection cn=null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
 
             String sql = "INSERT INTO prenotazione (mail,tipo,data) VALUES ('"+this.email+"',"+1+",'"+this.data+"')";
