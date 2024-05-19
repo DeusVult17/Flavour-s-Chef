@@ -29,9 +29,18 @@ export class AsportoComponent {
 
   }
 
+
+  isDataValid(date: string): boolean {
+    const inputDate = new Date(date);
+    const today = new Date();
+    // Reset hours, minutes, seconds, and milliseconds for comparison
+    today.setHours(0, 0, 0, 0);
+    return inputDate >= today;
+  }
+
   menu(){
 
-    if(this.email.includes("@") && this.data != ''){
+    if(this.email.includes("@") && this.isDataValid(this.data)){
 
       const formData={
         email:this.email,

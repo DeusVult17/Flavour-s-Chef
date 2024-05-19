@@ -34,6 +34,10 @@ export class VisordinazioniComponent implements OnInit{
 
   ngOnInit() {
 
+    this.prenotazioni();
+  }
+
+  prenotazioni(){
     this.http.get<Prenotazione[]>('http://localhost:8080/vispreno').subscribe(
       (response) => {
         this.reservations = response;
@@ -43,7 +47,6 @@ export class VisordinazioniComponent implements OnInit{
       }
     );
   }
-
 
   selectReservation(email: string) {
     this.selectedEmail=email;
@@ -68,6 +71,24 @@ export class VisordinazioniComponent implements OnInit{
     );
 
 
+  }
+
+  toggleSpecialFunction(event: Event){
+    const checked = (event.target as HTMLInputElement).checked;
+    if(checked){
+
+      this.http.get<Prenotazione[]>('http://localhost:8080/visasp').subscribe(
+      (response) => {
+        this.reservations = response;
+      },
+      (error) => {
+        console.error('Errore nel caricamento delle prenotazioni:', error);
+      }
+    );
+
+    }else{
+      this.prenotazioni();
+    }
   }
 
 }

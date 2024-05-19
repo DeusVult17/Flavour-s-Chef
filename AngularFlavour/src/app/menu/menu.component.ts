@@ -71,11 +71,14 @@ export class MenuComponent implements OnInit {
       console.log("errore nella ricerca dell'id UTENTE");
       this.router.navigate(['/home']);
     }
-    if(this.service.getAsporto()){    //DA CAMBIARE LA API IN ASPORTO 
+
+    if(this.service.getAsporto()){ 
+
       this.http.post<Risposta>('http://localhost:8080/comanda',body).subscribe(
         (response) => {
           if(response.validation){
   
+            this.router.navigate(['/home']);
           }else{
 
           }
@@ -86,11 +89,9 @@ export class MenuComponent implements OnInit {
         }
        );
 
-    }
-
-
-    this.http.post<Risposta>('http://localhost:8080/comanda',body).subscribe(
-      (response) => {
+    }else{
+      this.http.post<Risposta>('http://localhost:8080/comanda',body).subscribe(
+        (response) => {
 
         if(response.validation){
           
@@ -100,12 +101,16 @@ export class MenuComponent implements OnInit {
           this.router.navigate(['/home']);
         }
 
-     },
+        },
 
-     (error) => {
+      (error) => {
        console.error('Errore nella richiesta:', error);       
       }
      );
+    }
+
+
+
 
   }
 

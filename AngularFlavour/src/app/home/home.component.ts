@@ -6,13 +6,13 @@ import { DataService } from '../data.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   constructor(private myService: DataService) { } // Inietta il service nel costruttore
 
-  // metodo(){
-  //   this.myService.cambia();
-  // }
+  ngOnInit(){
+    this.myService.setAsporto(false);    
+  }
 }
 
 

@@ -40,7 +40,7 @@ export class OrdinazioneComponent {
             this.service.setId(response.id);
             this.router.navigate(['/menu']);
           }else{
-            console.log(response.validation);
+            console.log("errore");
           }
           
         },

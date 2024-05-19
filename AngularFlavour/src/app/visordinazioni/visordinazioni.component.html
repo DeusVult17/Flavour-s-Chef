@@ -2,6 +2,10 @@
     <div class="left-column">
         <div class="content">
         <app-selezione img="../../assets/house.svg" nome="Admin" azione="cambiaPagina" pagina="admin"></app-selezione>
+        <div class="toggle-container">
+            <label for="toggle-switch">Asporto:</label>
+            <input type="checkbox" id="toggle-switch" (change)="toggleSpecialFunction($event)">
+        </div><br>
             <h2 class="header">Prenotazioni</h2>
             <div *ngFor="let reservation of reservations">
                 <button type="button" (click)="selectReservation(reservation.email)">{{ reservation.email }}</button>
@@ -30,4 +34,7 @@
             </div> 
         </div>
     </div>
+
+    
+
 </div>
