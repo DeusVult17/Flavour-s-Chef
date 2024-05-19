@@ -25,7 +25,7 @@ export class PrenotazioneComponent {
 
   constructor(private formBuilder: FormBuilder,private http: HttpClient,private router: Router,private servizio: DataService) {
     this.form = this.formBuilder.group({
-      // Definisci qui i controlli del form
+      
     });
   }
 

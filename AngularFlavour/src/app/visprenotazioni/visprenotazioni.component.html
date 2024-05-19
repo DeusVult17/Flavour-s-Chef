@@ -1,0 +1,32 @@
+
+   <div class="container">
+    <div class="left-column">
+        <div class="content">
+            <app-selezione img="../../assets/house.svg" nome="Admin" azione="cambiaPagina" pagina="admin"></app-selezione>
+            <br><br>
+
+            <div *ngFor="let reservation of reservations">
+                <form (ngSubmit)="selectReservation(reservation)" class="reservation-form">
+                    <div>
+                        <p>{{ reservation.email }}</p>
+                        <button type="button" (click)="selectReservation(reservation)">Mostra dettagli</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+  
+    <div class="right-column">
+        <div class="content">
+            <h2 class="header">Dettagli Prenotazione</h2>
+            <div class="right-pane" *ngIf="selectedReservation">
+                <h2>Dettagli Prenotazione</h2>
+                <p>Email: {{ selectedReservation.email }}</p>
+                <p>Data: {{ selectedReservation.data }}</p>
+                <p>Numero di persone: {{ selectedReservation.persone }}</p>
+                <p>Numero del tavolo: {{ selectedReservation.tavolo }}</p>                
+            </div>
+        </div>
+    </div>
+</div>

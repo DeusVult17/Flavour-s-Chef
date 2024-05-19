@@ -20,6 +20,9 @@ import { AsportoComponent } from './asporto/asporto.component';
 import { TavpiattiComponent } from './tavpiatti/tavpiatti.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
+import { VisprenotazioniComponent } from './visprenotazioni/visprenotazioni.component';
+import { VisordinazioniComponent } from './visordinazioni/visordinazioni.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +36,9 @@ import { AdminComponent } from './admin/admin.component';
     AsportoComponent,
     TavpiattiComponent,
     LoginComponent,
-    AdminComponent
+    AdminComponent,
+    VisprenotazioniComponent,
+    VisordinazioniComponent,
   ],
   imports: [
     BrowserModule,

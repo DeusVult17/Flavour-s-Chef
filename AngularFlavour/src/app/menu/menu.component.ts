@@ -39,7 +39,6 @@ export class MenuComponent implements OnInit {
     console.log(this.service.getId());
     this.http.get<response[]>('http://localhost:8080/menu').subscribe(
       (response) => {
-        console.log("we're so barack");
         for(let i=0; i<response.length;i++){
           const dish: Dish = {
             id: parseInt(response[i].id),
