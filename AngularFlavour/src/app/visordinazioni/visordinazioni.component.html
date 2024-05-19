@@ -1,1 +1,33 @@
-<p>visordinazioni works!</p>
+<div class="container">
+    <div class="left-column">
+        <div class="content">
+        <app-selezione img="../../assets/house.svg" nome="Admin" azione="cambiaPagina" pagina="admin"></app-selezione>
+            <h2 class="header">Prenotazioni</h2>
+            <div *ngFor="let reservation of reservations">
+                <button type="button" (click)="selectReservation(reservation.email)">{{ reservation.email }}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-column">
+        <div class="content">
+            <h2 class="header">Ordini per {{ selectedEmail }}</h2>
+
+            <div *ngIf="selectedEmail">
+                <div *ngIf="orders.length > 0">
+                    <ul>
+                        <li *ngFor="let order of orders">
+                            <p>{{ order.piatto }} - Quantità: {{ order.quantita }}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div *ngIf="orders.length === 0">
+                    <p>Nessun ordine disponibile per {{ selectedEmail }}.</p>
+                </div>
+            </div>
+            <div *ngIf="!selectedEmail">
+                <p>Seleziona un'email per visualizzare gli ordini.</p>
+            </div> 
+        </div>
+    </div>
+</div>
