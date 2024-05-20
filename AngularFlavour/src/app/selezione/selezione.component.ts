@@ -31,6 +31,7 @@ export class SelezioneComponent {
   @Input() parametri: string = '';  //parametri se servono per il metodo
   @Input() pagina: string = ''; // pagina a cui si verrà reinderizzati
   @Input() img:String='';
+  @Input() stile:String='button-normal';
   message:string;
   text: string;
   

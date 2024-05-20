@@ -1,15 +1,14 @@
 
-   <div class="container">
+<div class="container">
     <div class="left-column">
         <div class="content">
-            <app-selezione img="../../assets/house.svg" nome="Admin" azione="cambiaPagina" pagina="admin"></app-selezione>
+            <app-selezione img="../../assets/house.svg" nome="Administration" azione="cambiaPagina" pagina="admin" stile="button-admin"></app-selezione>
             <br><br>
 
             <div *ngFor="let reservation of reservations">
                 <form (ngSubmit)="selectReservation(reservation)" class="reservation-form">
                     <div>
-                        <p>{{ reservation.email }}</p>
-                        <button type="button" (click)="selectReservation(reservation)">Mostra dettagli</button>
+                        <p class="font-p">{{ reservation.email }} <button type="button" (click)="selectReservation(reservation)" class="small-button">Mostra dettagli</button> </p>
                     </div>
                 </form>
 
@@ -21,17 +20,14 @@
         <div class="content">
             <h2 class="header">Dettagli Prenotazione</h2>
             <div class="right-pane" *ngIf="selectedReservation">
-                <h2>Dettagli Prenotazione</h2>
-                <p>Email: {{ selectedReservation.email }}</p>
-                <p>Data: {{ selectedReservation.data }}</p>
-                <p>Numero di persone: {{ selectedReservation.persone }}</p>
-                <p>Numero del tavolo: {{ selectedReservation.tavolo }}</p>                
+                <br><br><br>
+                <p class="font-p">Email: {{ selectedReservation.email }}</p>
+                <p class="font-p">Data: {{ selectedReservation.data }}</p>
+                <p class="font-p">Numero di persone: {{ selectedReservation.persone }}</p>
+                <p class="font-p">Numero del tavolo: {{ selectedReservation.tavolo }}</p>                
             </div>
             <button type="button" (click)="elimina()">elimina</button>
         </div>
         
     </div>
-
-
-
 </div>

@@ -1,53 +1,38 @@
 <div class="container">
     <div class="left-column">
         <div class="content">
-        <app-selezione img="../../assets/house.svg" nome="Admin" azione="cambiaPagina" pagina="admin"></app-selezione>
+        <app-selezione img="../../assets/house.svg" nome="Administration" azione="cambiaPagina" pagina="admin" stile="button-admin"></app-selezione>
         <div class="toggle-container">
-            <label for="toggle-switch">Asporto:</label>
-            <input type="checkbox" id="toggle-switch" (change)="toggleSpecialFunction($event)">
-        </div><br>
-
-        <div class="toggle-container">
-            <label for="toggle-switch">Oggi:</label>
-            <input type="checkbox" id="toggle-switch" (change)="data($event)">
-        </div><br>
-
             <h2 class="header">Prenotazioni</h2>
-            
-            <ng-container *ngFor="let reservation of reservations">
-                <ng-container *ngIf="reservation.tavolo != 0; else noTable">
-                  <button type="button" (click)="selectReservation(reservation.email)">
-                    {{ reservation.email }} -- {{ reservation.tavolo }}
-                  </button>
-                </ng-container>
-                <ng-template #noTable>
-                  <button type="button" (click)="selectReservation(reservation.email)">
-                    {{ reservation.email }}
-                  </button>
-                </ng-template>
-              </ng-container>
-
+            <br>
+            <label for="toggle-switch" class="font-p">Asporto:</label>
+            <input type="checkbox" id="toggle-switch" (change)="toggleSpecialFunction($event)">
+        </div>
+            <br><br>
+            <div *ngFor="let reservation of reservations">
+                <button type="button" (click)="selectReservation(reservation.email)" class="small-button">{{ reservation.email }}</button>
+            </div>
         </div>
     </div>
 
     <div class="right-column">
         <div class="content">
             <h2 class="header">Ordini per {{ selectedEmail }}</h2>
-
+            <br><br>
             <div *ngIf="selectedEmail">
                 <div *ngIf="orders.length > 0">
                     <ul>
                         <li *ngFor="let order of orders">
-                            <p>{{ order.piatto }} - Quantità: {{ order.quantita }}</p>
+                            <p class="font-p">{{ order.piatto }} - Quantità: {{ order.quantita }}</p>
                         </li>
                     </ul>
                 </div>
                 <div *ngIf="orders.length === 0">
-                    <p>Nessun ordine disponibile per {{ selectedEmail }}.</p>
+                    <p class="font-p">Nessun ordine disponibile per {{ selectedEmail }}.</p>
                 </div>
             </div>
             <div *ngIf="!selectedEmail">
-                <p>Seleziona un'email per visualizzare gli ordini.</p>
+                <p class="font-p">Seleziona un'email per visualizzare gli ordini.</p>
             </div> 
         </div>
     </div>

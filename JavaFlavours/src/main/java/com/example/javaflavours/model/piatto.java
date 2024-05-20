@@ -27,7 +27,7 @@ public class piatto {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
             String sql = "SELECT * FROM contiene WHERE codpre="+pren+" AND codPia="+this.id+"";
 
@@ -58,7 +58,7 @@ public class piatto {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
             String sql = "SELECT * FROM piatto";
             ResultSet rs = stmt.executeQuery(sql);
