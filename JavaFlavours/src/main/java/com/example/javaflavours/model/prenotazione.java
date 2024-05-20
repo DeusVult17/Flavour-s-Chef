@@ -31,9 +31,9 @@ public class prenotazione {
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn=DriverManager.getConnection("jdbc:mysql://localhost/flavourschef","root","");
+            cn=DriverManager.getConnection("jdbc:mysql://localhost/flavourschef","root","Password12");
             Statement stmt=cn.createStatement();
-            //mail();   METODO PER LA MAIL,DA DECOMMETNARE POI
+            //mail();   //METODO PER LA MAIL,DA DECOMMETNARE POI
 
             String sql="SELECT * FROM tavolo WHERE capacita>="+this.posti+"";
             ResultSet rs=stmt.executeQuery(sql);
@@ -76,7 +76,7 @@ public class prenotazione {
         Connection cn=null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
             String sql = "SELECT * from prenotazione WHERE mail='"+email+"'";
             ResultSet rs = stmt.executeQuery(sql);
@@ -113,7 +113,7 @@ public class prenotazione {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
             String sql = "SELECT mail,prenotazione.data,nPersone,tavolo.numTav FROM prenotazione INNER JOIN assegnato ON prenotazione.codPre=assegnato.codPre INNER JOIN tavolo ON assegnato.numTav=tavolo.numTav ORDER BY data";
             ResultSet rs = stmt.executeQuery(sql);
@@ -147,7 +147,7 @@ public class prenotazione {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
             String sql = "SELECT DISTINCT piatto.nome,quantita FROM piatto INNER JOIN contiene ON piatto.codPia=contiene.codPia INNER JOIN prenotazione ON contiene.codPre=prenotazione.codPre WHERE mail='"+mail+"'";
             ResultSet rs = stmt.executeQuery(sql);
@@ -176,7 +176,7 @@ public class prenotazione {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
             String sql = "SELECT mail,prenotazione.data,nPersone,tavolo.numTav FROM prenotazione INNER JOIN assegnato ON prenotazione.codPre=assegnato.codPre INNER JOIN tavolo ON assegnato.numTav=tavolo.numTav WHERE tipo=1 ORDER BY data";
             ResultSet rs = stmt.executeQuery(sql);
@@ -212,7 +212,7 @@ public class prenotazione {
         Connection cn=null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
 
             String sql = "INSERT INTO prenotazione (mail,tipo,data) VALUES ('"+this.email+"',"+1+",'"+this.data+"')";
