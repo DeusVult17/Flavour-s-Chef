@@ -7,6 +7,9 @@
             <br>
             <label for="toggle-switch" class="font-p">Asporto:</label>
             <input type="checkbox" id="toggle-switch" (change)="toggleSpecialFunction($event)">
+            <br>
+            <label for="toggle-switch" class="font-p">Oggi:</label>
+            <input type="checkbox" id="toggle-switch" (change)="data($event)">
         </div>
             <br><br>
             <div *ngFor="let reservation of reservations">

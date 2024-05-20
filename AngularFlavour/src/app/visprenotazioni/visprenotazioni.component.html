@@ -19,13 +19,14 @@
     <div class="right-column">
         <div class="content">
             <h2 class="header">Dettagli Prenotazione</h2>
+            <br><br><br>
             <div class="right-pane" *ngIf="selectedReservation">
-                <br><br><br>
                 <p class="font-p">Email: {{ selectedReservation.email }}</p>
                 <p class="font-p">Data: {{ selectedReservation.data }}</p>
                 <p class="font-p">Numero di persone: {{ selectedReservation.persone }}</p>
                 <p class="font-p">Numero del tavolo: {{ selectedReservation.tavolo }}</p>                
             </div>
+            <br>
             <button type="button" (click)="elimina()">elimina</button>
         </div>
         
