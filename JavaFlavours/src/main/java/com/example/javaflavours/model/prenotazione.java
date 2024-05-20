@@ -178,7 +178,7 @@ public class prenotazione {
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
             Statement stmt = cn.createStatement();
-            String sql = "SELECT mail,prenotazione.data,nPersone,tavolo.numTav FROM prenotazione INNER JOIN assegnato ON prenotazione.codPre=assegnato.codPre INNER JOIN tavolo ON assegnato.numTav=tavolo.numTav WHERE tipo=1 ORDER BY data";
+            String sql = "SELECT mail,prenotazione.data FROM prenotazione WHERE tipo=1 ORDER BY data";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -186,8 +186,8 @@ public class prenotazione {
                 Date datesql = rs.getDate("data");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String data = dateFormat.format(datesql);
-                int persone=rs.getInt("nPersone");
-                int tavolo=rs.getInt("numTav");
+                int persone=0;
+                int tavolo=0;
 
                 Map<String, Object> row = new HashMap<>();
                 row.put("email", mail);
