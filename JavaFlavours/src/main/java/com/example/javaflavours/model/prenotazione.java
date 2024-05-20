@@ -26,6 +26,38 @@ public class prenotazione {
     }
 
 
+    public boolean start(String data){
+        Connection cn=null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            Statement stmt = cn.createStatement();
+            ResultSet rs;
+
+            String sql="DELETE FROM prenotazione WHERE data<'"+data+"'";
+            sql="SELECT codPre FROM prenotazione WHERE data<'"+data+"'";
+            rs=stmt.executeQuery(sql);
+
+            while(rs.next()){
+                int id=rs.getInt("codPre");
+                Statement stmt2 = cn.createStatement();
+                sql="DELETE FROM prenotazione WHERE data<'"+data+"' ";
+                stmt2.executeUpdate(sql);
+                sql="DELETE FROM assegnato WHERE dataOccu<'"+data+"'";
+                stmt2.executeUpdate(sql);
+
+                sql="DELETE FROM contiene WHERE codPre="+id+"";
+                stmt2.executeUpdate(sql);
+            }
+
+            cn.close();
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+            return false;
+        }
+    }
+
     public String inserisci(){
         Connection cn=null;
 

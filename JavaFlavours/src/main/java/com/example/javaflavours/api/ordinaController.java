@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.*;
@@ -15,6 +16,18 @@ import java.util.*;
 @RestController
 public class ordinaController {
 
+
+    @GetMapping("/start")
+    public Map<String,Object> start(){
+        Map<String,Object> response=new HashMap<>();
+        LocalDate oggi = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String data = oggi.format(formatter);
+        prenotazione pr=new prenotazione();
+        boolean validate=pr.start(data);
+
+        return response;
+    }
 
     @PostMapping("/prenota")
     public Map<String,Object> prenotazione(@RequestBody Map<String,Object> body){
