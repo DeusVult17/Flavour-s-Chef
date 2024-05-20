@@ -21,36 +21,36 @@ public class piatto {
         this.prezzo = prezzo;
     }
 
-    /*public Map<String,String>[] prendi(){
+    public void ordina(int pren){
 
-        Map<String,String>[] response=new Map[2];
+        Connection cn = null;
 
-        Connection cn=null;
-
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn= DriverManager.getConnection("jdbc:mysql://localhost/flavourschef","root","");
-            Statement stmt=cn.createStatement();
-            int i=0;
-            String sql="SELECT * FROM piatto ";
-            ResultSet rs=stmt.executeQuery(sql);
-            while(rs.next()){
-                int id=rs.getInt("codPia");
-                String nome=rs.getString("nome");
-                double prezzo=rs.getDouble("prezzo");
-                response[i] = new HashMap<>();
-                response[i].put("id",Integer.toString(id));
-                response[i].put("nome",nome);
-                response[i].put("prezzo",String.valueOf(prezzo));
-                i++;
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            Statement stmt = cn.createStatement();
+            String sql = "SELECT * FROM contiene WHERE codpre="+pren+" AND codPia="+this.id+"";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            if(rs.next()){
+                int q=rs.getInt("quantita");
+                q++;
+                sql="UPDATE contiene SET quantita="+q+" WHERE codpre="+pren+" AND codPia="+this.id+"";
+                Statement stmt2 = cn.createStatement();
+                stmt2.executeUpdate(sql);
+            }else{
+                sql="INSERT INTO contiene (codPia,codPre,quantita) VALUES ("+this.id+","+pren+",1)";
+                Statement stmt2 = cn.createStatement();
+                stmt2.executeUpdate(sql);
             }
+
             cn.close();
-            return response;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
-            return response;
         }
-    }*/
+
+    }
 
     public List<Map<String, String>> prendi() {
         List<Map<String, String>> response = new ArrayList<>();
@@ -58,7 +58,7 @@ public class piatto {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
             Statement stmt = cn.createStatement();
             String sql = "SELECT * FROM piatto";
             ResultSet rs = stmt.executeQuery(sql);
@@ -78,6 +78,9 @@ public class piatto {
         }
         return response;
     }
+
+
+
 
 
 

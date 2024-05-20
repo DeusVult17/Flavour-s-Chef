@@ -4,7 +4,9 @@ import java.sql.*;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.text.SimpleDateFormat;
 import javax.xml.transform.Result;
+import java.util.Date;
 
 public class prenotazione {
     String email;
@@ -29,9 +31,9 @@ public class prenotazione {
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn=DriverManager.getConnection("jdbc:mysql://localhost/flavourschef","root","Password12");
+            cn=DriverManager.getConnection("jdbc:mysql://localhost/flavourschef","root","");
             Statement stmt=cn.createStatement();
-            mail();   //METODO PER LA MAIL,DA DECOMMETNARE POI
+            //mail();   METODO PER LA MAIL,DA DECOMMETNARE POI
 
             String sql="SELECT * FROM tavolo WHERE capacita>="+this.posti+"";
             ResultSet rs=stmt.executeQuery(sql);
@@ -53,8 +55,8 @@ public class prenotazione {
                     rs2.next();
 
                     int codice=rs2.getInt("LAST_INSERT_ID()");
+                    setId(codice);
                     sql="INSERT INTO assegnato (codPre,numTav,dataOccu) VALUES ("+codice+","+numTav+",'"+this.data+"')";
-                    System.out.println(sql);
                     stmt2.executeUpdate(sql);
                     cn.close();
                     return "si";
@@ -74,7 +76,7 @@ public class prenotazione {
         Connection cn=null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
             Statement stmt = cn.createStatement();
             String sql = "SELECT * from prenotazione WHERE mail='"+email+"'";
             ResultSet rs = stmt.executeQuery(sql);
@@ -89,11 +91,11 @@ public class prenotazione {
         }
     }
 
-    public boolean comanda(int id){
+    /*public boolean comanda(int id){
         Connection cn=null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
             Statement stmt = cn.createStatement();
 
             String sql = "DELETE from prenotazione WHERE codPre="+id+"";
@@ -103,31 +105,114 @@ public class prenotazione {
         }catch (Exception e){
             return false;
         }
-    }
+    }*/
 
-    public boolean asporto(int id){
-        Connection cn=null;
+    public List<Map<String, Object>> prendiPren() {
+        List<Map<String, Object>> response = new ArrayList<>();
+        Connection cn = null;
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
             Statement stmt = cn.createStatement();
+            String sql = "SELECT mail,prenotazione.data,nPersone,tavolo.numTav FROM prenotazione INNER JOIN assegnato ON prenotazione.codPre=assegnato.codPre INNER JOIN tavolo ON assegnato.numTav=tavolo.numTav ORDER BY data";
+            ResultSet rs = stmt.executeQuery(sql);
 
-            String sql = "DELETE from prenotazione WHERE codPre="+id+"";
-            stmt.executeQuery(sql);
-            sql = "DELETE from assegnato WHERE codPre="+id+"";
-            return true;
-        }catch (Exception e){
-            return false;
+            while (rs.next()) {
+                String mail = rs.getString("mail");
+                Date datesql = rs.getDate("data");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String data = dateFormat.format(datesql);
+                int persone=rs.getInt("nPersone");
+                int tavolo=rs.getInt("numTav");
+
+                Map<String, Object> row = new HashMap<>();
+                row.put("email", mail);
+                row.put("data", data);
+                row.put("persone", persone);
+                row.put("tavolo", tavolo);
+                response.add(row);
+            }
+
+            cn.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
+        return response;
+    }
+
+    public List<Map<String, Object>> prendiOrd(String mail) {
+        List<Map<String, Object>> response = new ArrayList<>();
+        Connection cn = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            Statement stmt = cn.createStatement();
+            String sql = "SELECT DISTINCT piatto.nome,quantita FROM piatto INNER JOIN contiene ON piatto.codPia=contiene.codPia INNER JOIN prenotazione ON contiene.codPre=prenotazione.codPre WHERE mail='"+mail+"'";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String piatto=rs.getString("nome");
+                int quantita=rs.getInt("quantita");
+
+                Map<String, Object> row = new HashMap<>();
+                row.put("piatto", piatto);
+                row.put("quantita", quantita);
+                response.add(row);
+            }
+
+            cn.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return response;
     }
 
 
-    public boolean ordAsporto(){
+    public List<Map<String, Object>> prendiAsp() {
+        List<Map<String, Object>> response = new ArrayList<>();
+        Connection cn = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            Statement stmt = cn.createStatement();
+            String sql = "SELECT mail,prenotazione.data,nPersone,tavolo.numTav FROM prenotazione INNER JOIN assegnato ON prenotazione.codPre=assegnato.codPre INNER JOIN tavolo ON assegnato.numTav=tavolo.numTav WHERE tipo=1 ORDER BY data";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String mail = rs.getString("mail");
+                Date datesql = rs.getDate("data");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String data = dateFormat.format(datesql);
+                int persone=rs.getInt("nPersone");
+                int tavolo=rs.getInt("numTav");
+
+                Map<String, Object> row = new HashMap<>();
+                row.put("email", mail);
+                row.put("data", data);
+                row.put("persone", persone);
+                row.put("tavolo", tavolo);
+                response.add(row);
+            }
+
+            cn.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return response;
+    }
+
+
+
+
+    public boolean asporto(){
 
         Connection cn=null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "Password12");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
             Statement stmt = cn.createStatement();
 
             String sql = "INSERT INTO prenotazione (mail,tipo,data) VALUES ('"+this.email+"',"+1+",'"+this.data+"')";
@@ -154,8 +239,8 @@ public class prenotazione {
     public void mail(){
         String host = "smtp.gmail.com";
         String port = "587";
-        String username = "flavorschef.sdl@gmail.com";  //STA ROBA VA CAMBIATA CON LA FAKE MAIL DEL PROGRAMMA
-        String password = "arma47tetto@R"; // THE SAME
+        String username = "mail";  //STA ROBA VA CAMBIATA CON LA FAKE MAIL DEL PROGRAMMA
+        String password = "ppassword"; // THE SAME
 
 
         Properties props = new Properties();
@@ -173,8 +258,8 @@ public class prenotazione {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("flavorschef.sdl@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("gntfnc05s12e507x@iisbadoni.edu.it"));
+            message.setFrom(new InternetAddress("hxhprd05t15e507v@iisbadoni.edu.it"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("paride.hoxha@gmail.com"));
             message.setSubject("Benvenuto su flavourschef");
             message.setText("Shoutouts to Simpleflips");
             Transport.send(message);

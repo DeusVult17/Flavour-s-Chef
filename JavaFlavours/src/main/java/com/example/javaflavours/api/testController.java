@@ -20,15 +20,18 @@ public class testController {
         return "shoutouts to simpleflips :D";
     }
 
-    @PostMapping("/prenota")
-    public Map<String,String> prenotazione(@RequestBody Map<String,String> body){
-        //String a=f.get("stringa");
-        Map<String,String> response=new HashMap<>();
 
-        int posti=Integer.parseInt(body.get("posti"));
-        prenotazione pr=new prenotazione(body.get("email"),body.get("data"),posti);
+    @PostMapping("/prenota")    //controller 1
+    public Map<String,Object> prenotazione(@RequestBody Map<String,Object> body){
+        //String a=f.get("stringa");
+        Map<String,Object> response=new HashMap<>();
+
+        int posti=(int) (body.get("posti"));
+        prenotazione pr=new prenotazione((String)body.get("email"),(String)body.get("data"),posti);
         String risposta=pr.inserisci();
         response.put("message",risposta);
+        response.put("id",pr.getId());
+
         return response;
     }
 
@@ -43,47 +46,80 @@ public class testController {
     }
 
 
-    @GetMapping("/menu")
+    @GetMapping("/menu")    //controller 3
     public List<Map<String, String>> ottieniMenu() {
         piatto piatto = new piatto();
         return piatto.prendi();
     }
 
-    @PostMapping("/comanda")
+    @PostMapping("/comanda")    //controller 3
     public Map<String,Object> comanda(@RequestBody Map<String,Object> body){
+
         Map<String,Object> response=new HashMap<>();
-        prenotazione pr=new prenotazione();
-        int id=(int) body.get("id");
-        boolean manda=pr.comanda(id);
-        response.put("validation",manda);
+
+        int pren=(int) body.get("id");
+        List<Map<String, Object>> piatti = (List<Map<String, Object>>) body.get("piatti");
+        for(Map<String, Object> piatto:piatti){
+            double prezzo = ((Number) piatto.get("prezzo")).doubleValue();
+            piatto pt=new piatto((int) piatto.get("id"),(String) piatto.get("nome"),prezzo);
+            pt.ordina(pren);
+        }
+
+        response.put("validation",true);
         return response;
     }
 
-    @PostMapping("/asporto")
+    @PostMapping("/asporto") //controller 3
     public Map<String,Object> asporto(@RequestBody Map<String,Object> body){
-        Map<String,Object> response=new HashMap<>();
-        prenotazione pr=new prenotazione();
-
-
-        
-        return response;
-    }
-
-
-
-    @PostMapping("/ordAsporto")
-    public Map<String,Object> ordAsporto(@RequestBody Map<String,Object> body){
         Map<String,Object> response=new HashMap<>();
         prenotazione pr=new prenotazione();
         pr.setEmail((String)body.get("email"));
         pr.setData((String)body.get("data"));
-        boolean validation=pr.ordAsporto();
+        boolean validation=pr.asporto();
         response.put("validation",validation);
         response.put("id",pr.getId());
 
         return response;
     }
 
+
+
+   /* @PostMapping("/comAsporto")    //controller 2,3 ?
+    public Map<String,Object> comAsporto(@RequestBody Map<String,Object> body){
+        Map<String,Object> response=new HashMap<>();
+        prenotazione pr=new prenotazione();
+        pr.asporto();
+        response.put("validation",true);
+        response.put("id",pr.getId());
+        return response;
+    }*/
+
+
+
+
+
+    @GetMapping("/vispreno")
+    public List<Map<String, Object>> ottieniPreno(){
+        prenotazione pr=new prenotazione();
+
+        return pr.prendiPren();
+
+    }
+
+    @PostMapping("/visord")
+    public List<Map<String, Object>> ottieniordini(@RequestBody Map<String,Object> body){
+        prenotazione pr=new prenotazione();
+        String mail=(String)body.get("mail");
+        return pr.prendiOrd(mail);
+
+    }
+
+    @GetMapping("/visasp")
+    public List<Map<String, Object>> ottieniasporto(){
+        prenotazione pr=new prenotazione();
+        return pr.prendiAsp();
+
+    }
 
 
 }
