@@ -113,6 +113,7 @@ button:hover {
     margin-top: 10px;
     font-family: cursive;
     text-shadow: 2px 2px 2px #2469FF;
+    line-height: 100%;
 }
 
 .font-p {

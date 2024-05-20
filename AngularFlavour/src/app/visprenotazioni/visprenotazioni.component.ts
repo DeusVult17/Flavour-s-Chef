@@ -58,11 +58,8 @@ export class VisprenotazioniComponent implements OnInit {
       this.http.post<Risposta>('http://localhost:8080/elimina',body).subscribe(
         (response) => {
            if(response.validation){
-            console.log("parteeee");
             this.router.navigate(['/admin']);
-            console.log("you shoulnd't be here");
            }else{
-            console.log("NOOOOOOOO");
             console.error("errore nella eliminazione della prenotazione");
            }
         },
