@@ -6,10 +6,27 @@
             <label for="toggle-switch">Asporto:</label>
             <input type="checkbox" id="toggle-switch" (change)="toggleSpecialFunction($event)">
         </div><br>
+
+        <div class="toggle-container">
+            <label for="toggle-switch">Oggi:</label>
+            <input type="checkbox" id="toggle-switch" (change)="data($event)">
+        </div><br>
+
             <h2 class="header">Prenotazioni</h2>
-            <div *ngFor="let reservation of reservations">
-                <button type="button" (click)="selectReservation(reservation.email)">{{ reservation.email }}</button>
-            </div>
+            
+            <ng-container *ngFor="let reservation of reservations">
+                <ng-container *ngIf="reservation.tavolo != 0; else noTable">
+                  <button type="button" (click)="selectReservation(reservation.email)">
+                    {{ reservation.email }} -- {{ reservation.tavolo }}
+                  </button>
+                </ng-container>
+                <ng-template #noTable>
+                  <button type="button" (click)="selectReservation(reservation.email)">
+                    {{ reservation.email }}
+                  </button>
+                </ng-template>
+              </ng-container>
+
         </div>
     </div>
 

@@ -46,6 +46,8 @@ export class VisordinazioniComponent implements OnInit{
         console.error('Errore nel caricamento delle prenotazioni:', error);
       }
     );
+
+
   }
 
   selectReservation(email: string) {
@@ -53,11 +55,6 @@ export class VisordinazioniComponent implements OnInit{
     const body={
       mail: email
     }
-
-    this.orders = [
-      { piatto: 'Lasagne al forno', quantita: 3 },
-      { piatto: 'Tiramisù', quantita: 2 }
-    ];
 
     this.http.post<Ordine[]>(`http://localhost:8080/visord`,body).subscribe(
       (response) => {
@@ -75,6 +72,7 @@ export class VisordinazioniComponent implements OnInit{
 
   toggleSpecialFunction(event: Event){
     const checked = (event.target as HTMLInputElement).checked;
+    this.selectedEmail=null;
     if(checked){
 
       this.http.get<Prenotazione[]>('http://localhost:8080/visasp').subscribe(
@@ -85,6 +83,18 @@ export class VisordinazioniComponent implements OnInit{
         console.error('Errore nel caricamento delle prenotazioni:', error);
       }
     );
+
+    }else{
+      this.prenotazioni();
+    }
+  }
+
+  data(event: Event){
+    const checked = (event.target as HTMLInputElement).checked;
+    if(checked){
+
+      const today = new Date().toISOString().split('T')[0];
+      this.reservations=this.reservations.filter(reservation => reservation.data === today);
 
     }else{
       this.prenotazioni();
