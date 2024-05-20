@@ -91,21 +91,6 @@ public class prenotazione {
         }
     }
 
-    /*public boolean comanda(int id){
-        Connection cn=null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
-            Statement stmt = cn.createStatement();
-
-            String sql = "DELETE from prenotazione WHERE codPre="+id+"";
-            stmt.executeQuery(sql);
-            sql = "DELETE from assegnato WHERE codPre="+id+"";
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }*/
 
     public List<Map<String, Object>> prendiPren() {
         List<Map<String, Object>> response = new ArrayList<>();
@@ -214,7 +199,6 @@ public class prenotazione {
             Class.forName("com.mysql.cj.jdbc.Driver");
             cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
             Statement stmt = cn.createStatement();
-
             String sql = "INSERT INTO prenotazione (mail,tipo,data) VALUES ('"+this.email+"',"+1+",'"+this.data+"')";
             System.out.println(sql);
             stmt.executeUpdate(sql);
@@ -235,6 +219,34 @@ public class prenotazione {
 
     }
 
+    public boolean elimina(int tav){
+
+        Connection cn=null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/flavourschef", "root", "");
+            Statement stmt = cn.createStatement();
+            ResultSet rs;
+            String sql = "SELECT prenotazione.codPre FROM prenotazione INNER JOIN assegnato ON prenotazione.codPre=assegnato.codPre WHERE mail='"+this.email+"' AND prenotazione.`data`='"+this.data+"' AND numTav="+tav+"";
+            rs=stmt.executeQuery(sql);
+            rs.next();
+            int id=rs.getInt("codPre");
+            sql="DELETE FROM prenotazione WHERE codPre="+id+"";
+            Statement stmt2 = cn.createStatement();
+            stmt2.executeUpdate(sql);
+            sql="DELETE FROM assegnato WHERE codPre="+id+"";
+            stmt2.executeUpdate(sql);
+            sql="DELETE FROM contiene WHERE codPre="+id+"";
+            stmt2.executeUpdate(sql);
+
+            cn.close();
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+            return false;
+        }
+
+    }
 
     public void mail(){
         String host = "smtp.gmail.com";

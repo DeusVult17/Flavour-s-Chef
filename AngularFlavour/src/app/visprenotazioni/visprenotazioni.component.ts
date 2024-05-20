@@ -14,6 +14,9 @@ interface prenotazione {
   tavolo: number;
 }
 
+interface Risposta{
+  validation: boolean
+}
 
 @Component({
   selector: 'app-visprenotazioni',
@@ -24,7 +27,7 @@ export class VisprenotazioniComponent implements OnInit {
   reservations: prenotazione[] = [];
   selectedReservation: prenotazione | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router: Router) {}
 
   ngOnInit() {
     this.http.get<prenotazione[]>('http://localhost:8080/vispreno').subscribe(
@@ -40,6 +43,37 @@ export class VisprenotazioniComponent implements OnInit {
 
   selectReservation(reservation: prenotazione) {
     this.selectedReservation = reservation;
+  }
+
+  elimina() {
+    if (this.selectedReservation != null) {   
+      console.log(this.selectedReservation.email);
+
+      const body={
+        email: this.selectedReservation.email,
+        data: this.selectedReservation.data,
+        tavolo: this.selectedReservation.tavolo,
+      }
+
+      this.http.post<Risposta>('http://localhost:8080/elimina',body).subscribe(
+        (response) => {
+           if(response.validation){
+            console.log("parteeee");
+            this.router.navigate(['/admin']);
+            console.log("you shoulnd't be here");
+           }else{
+            console.log("NOOOOOOOO");
+            console.error("errore nella eliminazione della prenotazione");
+           }
+        },
+        (error) => {
+          console.error('Errore:', error);
+        }
+      );
+
+
+    }else{
+    }
   }
 
 

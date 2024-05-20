@@ -84,18 +84,21 @@ public class testController {
 
 
 
-   /* @PostMapping("/comAsporto")    //controller 2,3 ?
-    public Map<String,Object> comAsporto(@RequestBody Map<String,Object> body){
+    @PostMapping("/elimina")
+    public Map<String,Object> elimina(@RequestBody Map<String,Object> body){
         Map<String,Object> response=new HashMap<>();
         prenotazione pr=new prenotazione();
-        pr.asporto();
-        response.put("validation",true);
-        response.put("id",pr.getId());
+        pr.setEmail((String)body.get("email"));
+        pr.setData((String)body.get("data"));
+        int tavolo=(int) body.get("tavolo");
+        System.out.println(tavolo);
+        System.out.println(pr.getEmail());
+        System.out.println(pr.getData());
+
+        boolean validation=pr.elimina(tavolo);
+        response.put("validation",validation);
         return response;
-    }*/
-
-
-
+    }
 
 
     @GetMapping("/vispreno")
