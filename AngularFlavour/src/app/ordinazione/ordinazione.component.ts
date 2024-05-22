@@ -40,19 +40,19 @@ export class OrdinazioneComponent {
             this.service.setId(response.id);
             this.router.navigate(['/menu']);
           }else{
-            console.log("errore");
+            alert('mail non trovata');
           }
           
         },
         (error) =>{
           console.log(error);
-          console.log("nonononono");
+          alert('errore nel server');
 
         }
 
       )
     }else{
-      console.log("mail non conforme");
+      alert('mail non conforme');
     }
 
   }

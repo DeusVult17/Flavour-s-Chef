@@ -8,6 +8,7 @@
   background-image: url('../../assets/wallpaper.png');
   background-size: cover;
   background-position: center;
+  overflow: auto;
 }
 
 .header {
@@ -27,4 +28,5 @@
   flex-direction: column;
   align-items: center;
   border: 8px solid #000000;
+  
 }

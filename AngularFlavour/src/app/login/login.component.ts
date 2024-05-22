@@ -31,8 +31,7 @@ export class LoginComponent {
       this.router.navigate(['/admin']);
 
     }else{
-      console.log("AUTORIZZAZIONE FALLITA");
-
+      alert('AUTORIZZAZIONE FALLITA');
     }
 
 
